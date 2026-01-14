@@ -1,38 +1,35 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { MdDashboard } from "react-icons/md";
-import { navItems } from "../../utils/NavItems";
- 
+// SideBar.jsx
+import React from 'react';
+import { MdDashboard } from 'react-icons/md';
+import { navItems } from '../../utils/NavItems';
+import { NavItem } from './NavItem';
+import { NavLink } from 'react-router-dom';
+
 export const SideBar = () => {
   return (
-    <div>
-      <div className="w-[350px] h-screen p-7 flex flex-col bg-[#1B5E20]">
-        <img src="/Tron2.png" className="w-[50px] h-[60px]"></img>
-        <img src="/Tron3.png" className="w-[100px] h-[50px]"></img>
-      </div>
+    <div className="w-[350px] h-screen p-7 flex flex-col bg-[#1B5E20]">
+      <img src="/Tron2.png" className="w-[50px] h-[60px]" />
+      <img src="/Tron3.png" className="w-[100px] h-[50px]" />
 
-      <div>
-        <NavLink
-          to="/"
-          className={({
-            isActive,
-          }) => `flex items-center gap-3 py-2 rounded-sm transition duration-300
-        ${
-          isActive
-            ? "bg-[#48089F] text-white"
-            : "text-white hover:text-[#c7b1e6] hover:outline hover:outline-[#FAEBEB]"
-        }`}
-        >
-          <MdDashboard size={20} />
-          <span>Dashboard</span>
-        </NavLink>
-        {navItems.map((item) => (
-          <navItems
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          `flex items-center gap-3 py-2 mt-10 rounded-sm ${
+            isActive ? "bg-[#ECFDF5] text-[#14532D]" : "text-white hover:text-black"
+          }`
+        }
+      >
+        <MdDashboard size={20} />
+        <span>Dashboard</span>
+      </NavLink>
+
+      <div className="mt-5 flex flex-col gap-2">
+        {navItems.map(item => (
+          <NavItem
             key={item.id}
+            path={item.path}
             icon={item.icon}
             name={item.name}
-            path={item.path}
-            location={location?.pathname}
           />
         ))}
       </div>
