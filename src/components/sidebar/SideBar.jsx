@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-
+import { MdDashboard } from "react-icons/md";
+import { navItems } from "../../utils/NavItems";
+ 
 export const SideBar = () => {
   return (
     <div>
@@ -10,7 +12,29 @@ export const SideBar = () => {
       </div>
 
       <div>
-        <NavLink></NavLink>
+        <NavLink
+          to="/"
+          className={({
+            isActive,
+          }) => `flex items-center gap-3 py-2 rounded-sm transition duration-300
+        ${
+          isActive
+            ? "bg-[#48089F] text-white"
+            : "text-white hover:text-[#c7b1e6] hover:outline hover:outline-[#FAEBEB]"
+        }`}
+        >
+          <MdDashboard size={20} />
+          <span>Dashboard</span>
+        </NavLink>
+        {navItems.map((item) => (
+          <navItems
+            key={item.id}
+            icon={item.icon}
+            name={item.name}
+            path={item.path}
+            location={location?.pathname}
+          />
+        ))}
       </div>
     </div>
   );
