@@ -16,7 +16,7 @@ const useCalculateAllEmissions = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        `${base_url}/api/v1/history/calculate`,
+        `${base_url}/history/calculate`,
         {
           vehicleData,
           foodItems,

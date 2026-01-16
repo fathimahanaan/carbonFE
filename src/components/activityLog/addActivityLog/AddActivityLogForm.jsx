@@ -1,13 +1,179 @@
-import React from 'react'
+import React, { useState } from "react";
+import useCalculateAllEmissions from "../../../hooks/history/useCalculateAllEmissions";
+ 
 
-export const AddActivityLogForm = () => {
- 
- 
+const AddActivityLogForm = () => {
+  const { loading, result, calculateEmissions } =
+    useCalculateAllEmissions();
+
+  // ---------------- Vehicle ----------------
+  const [vehicleData, setVehicleData] = useState({
+    activity: "",
+    type: "",
+    unit: "km",
+    fuel: "",
+    distance: "",
+  });
+
+  // ---------------- Food ----------------
+  const [foodItems, setFoodItems] = useState([]);
+  const [foodInput, setFoodInput] = useState({
+    product: "",
+    amount: "",
+    unit: "g",
+  });
+
+  // ---------------- Energy ----------------
+  const [energyData, setEnergyData] = useState({
+    activity: "",
+    unit: "",
+    amount: "",
+  });
+
+  // ---------------- Handlers ----------------
+  const addFoodItem = () => {
+    if (!foodInput.product || !foodInput.amount) return;
+
+    setFoodItems([...foodItems, foodInput]);
+    setFoodInput({ product: "", amount: "", unit: "g" });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await calculateEmissions({
+      vehicleData: vehicleData.distance ? vehicleData : null,
+      foodItems: foodItems.length ? foodItems : [],
+      energyData: energyData.amount ? energyData : null,
+    });
+  };
+
   return (
-    <div>AddActivityLogForm</div>
-  )
-}
- 
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-2xl mx-auto p-6 space-y-6 bg-white shadow rounded"
+    >
+      <h2 className="text-xl font-semibold">Add Activity Log</h2>
+
+      {/* ---------------- Vehicle ---------------- */}
+      <div>
+        <h3 className="font-medium">Vehicle</h3>
+        <input
+          placeholder="Activity (e.g. Travel)"
+          value={vehicleData.activity}
+          onChange={(e) =>
+            setVehicleData({ ...vehicleData, activity: e.target.value })
+          }
+        />
+        <input
+          placeholder="Type (Car, Bike)"
+          value={vehicleData.type}
+          onChange={(e) =>
+            setVehicleData({ ...vehicleData, type: e.target.value })
+          }
+        />
+        <input
+          placeholder="Fuel (Petrol, Diesel)"
+          value={vehicleData.fuel}
+          onChange={(e) =>
+            setVehicleData({ ...vehicleData, fuel: e.target.value })
+          }
+        />
+        <input
+          type="number"
+          placeholder="Distance (km)"
+          value={vehicleData.distance}
+          onChange={(e) =>
+            setVehicleData({ ...vehicleData, distance: e.target.value })
+          }
+        />
+      </div>
+
+      {/* ---------------- Food ---------------- */}
+      <div>
+        <h3 className="font-medium">Food</h3>
+        <input
+          placeholder="Food name"
+          value={foodInput.product}
+          onChange={(e) =>
+            setFoodInput({ ...foodInput, product: e.target.value })
+          }
+        />
+        <input
+          type="number"
+          placeholder="Amount"
+          value={foodInput.amount}
+          onChange={(e) =>
+            setFoodInput({ ...foodInput, amount: e.target.value })
+          }
+        />
+        <select
+          value={foodInput.unit}
+          onChange={(e) =>
+            setFoodInput({ ...foodInput, unit: e.target.value })
+          }
+        >
+          <option value="g">g</option>
+          <option value="kg">kg</option>
+        </select>
+
+        <button type="button" onClick={addFoodItem}>
+          Add Food
+        </button>
+
+        {foodItems.map((f, i) => (
+          <p key={i}>
+            {f.product} - {f.amount}
+            {f.unit}
+          </p>
+        ))}
+      </div>
+
+      {/* ---------------- Energy ---------------- */}
+      <div>
+        <h3 className="font-medium">Energy</h3>
+        <input
+          placeholder="Activity (Electricity)"
+          value={energyData.activity}
+          onChange={(e) =>
+            setEnergyData({ ...energyData, activity: e.target.value })
+          }
+        />
+        <input
+          placeholder="Unit (kWh)"
+          value={energyData.unit}
+          onChange={(e) =>
+            setEnergyData({ ...energyData, unit: e.target.value })
+          }
+        />
+        <input
+          type="number"
+          placeholder="Amount"
+          value={energyData.amount}
+          onChange={(e) =>
+            setEnergyData({ ...energyData, amount: e.target.value })
+          }
+        />
+      </div>
+
+      {/* ---------------- Submit ---------------- */}
+      <button type="submit" disabled={loading}>
+        {loading ? "Saving..." : "Save Activity"}
+      </button>
+
+      {/* ---------------- Result ---------------- */}
+      {result && (
+        <div className="mt-4">
+          <h3>Total Emission</h3>
+          <p>{result.totalEmission} kg CO₂e</p>
+        </div>
+      )}
+    </form>
+  );
+};
+
+export default AddActivityLogForm;
+
 
  
 
