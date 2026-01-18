@@ -6,12 +6,13 @@ const FormInput = ({
   onChange,
   placeholder,
   type = "text",
+  min,
   disabled = false,
 }) => {
   return (
     <div className="mb-4">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-[#006400] mb-1">
           {label}
         </label>
       )}
@@ -22,7 +23,8 @@ const FormInput = ({
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
-        className="border p-2 w-full rounded"
+        min={min}
+        className="border border-green-500 p-2 w-full rounded"
       />
     </div>
   );

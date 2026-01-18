@@ -16,7 +16,7 @@ const useGetVehicleOptions = (activity) => {
   const getVehicleOptions = async () => {
     setLoading(true);
     try {
-      // Only send query param when activity is not empty
+      
       const url = activity
         ? `${base_url}/vehicle/option?activity=${encodeURIComponent(activity)}`
         : `${base_url}/vehicle/option`;

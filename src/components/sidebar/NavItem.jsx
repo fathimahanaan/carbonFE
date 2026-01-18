@@ -7,16 +7,20 @@ export const NavItem = ({ path, icon, name }) => {
     <NavLink
       to={path}
       className={({ isActive }) =>
-        `flex items-center gap-3 px-3 py-2 rounded-sm text-white hover:text-[#c7b1e6] ${
-          isActive ? "bg-[#48089F] text-white" : ""
-        }`
+        `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300
+         ${
+           isActive
+             ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white shadow-lg"
+             : "bg-white text-[#006400] hover:bg-[#f0fff4] hover:text-[#004d00]"
+         }`
       }
     >
       {icon}
-      <span>{name}</span>
+      <span className="font-semibold">{name}</span>
     </NavLink>
   );
 };
+
 
 // `location` holds the current URL (e.g., location.pathname = "/activity").
 // It can be used to highlight the active link manually:

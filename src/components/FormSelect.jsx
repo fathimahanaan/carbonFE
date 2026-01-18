@@ -11,7 +11,7 @@ const FormSelect = ({
 }) => {
   return (
     <div className="mb-4">
-      <label className="block text-[#4F4F4F] font-semibold mb-2">
+      <label className="block  text-[#006400] font-semibold mb-2">
         {title}
       </label>
 
@@ -19,9 +19,9 @@ const FormSelect = ({
         value={value}
         onChange={onChange}
         multiple={multi}
-        className="border p-2 w-full rounded"
+        className="border border border-green-500 p-2 w-full rounded"
       >
-        <option value="">{`Select ${title}`}</option>
+        <option value="" disabled>{`Select ${title}`}</option>
 
         {list?.map((item, index) => {
           // If item is object

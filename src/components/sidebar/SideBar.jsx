@@ -1,30 +1,36 @@
-// SideBar.jsx
-import React from 'react';
-import { MdDashboard } from 'react-icons/md';
-import { navItems } from '../../utils/NavItems';
-import { NavItem } from './NavItem';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { MdDashboard } from "react-icons/md";
+import { navItems } from "../../utils/NavItems";
+import { NavItem } from "./NavItem";
+import { NavLink } from "react-router-dom";
 
 export const SideBar = () => {
   return (
-    <div className="w-[350px] h-screen p-7 flex flex-col bg-[#1B5E20]">
-      <img src="/Tron2.png" className="w-[50px] h-[60px]" />
-      <img src="/Tron3.png" className="w-[100px] h-[50px]" />
+    <div className="w-[320px] h-screen p-6 flex flex-col
+                    bg-white/10 backdrop-blur-md border border-green-500/10
+                    shadow-lg ">
+      <div className="flex items-center gap-3 mb-8">
+        <img src="/Tron2.png" className="w-[50px] h-[60px]" />
+        <img src="/Tron3.png" className="w-[100px] h-[50px]" />
+      </div>
 
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `flex items-center gap-3 py-2 mt-10 rounded-sm ${
-            isActive ? "bg-[#ECFDF5] text-[#14532D]" : "text-white hover:text-black"
-          }`
+          `flex items-center gap-3 py-3 px-3 rounded-xl transition-all duration-300
+           ${
+             isActive
+               ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-green-700 shadow-xl"
+               : "text-green-900 hover:bg-white hover:text-green-900"
+           }`
         }
       >
         <MdDashboard size={20} />
-        <span>Dashboard</span>
+        <span className="font-semibold">Dashboard</span>
       </NavLink>
 
-      <div className="mt-5 flex flex-col gap-2">
-        {navItems.map(item => (
+      <div className="mt-6 flex flex-col gap-2">
+        {navItems.map((item) => (
           <NavItem
             key={item.id}
             path={item.path}
