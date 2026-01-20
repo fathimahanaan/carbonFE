@@ -10,8 +10,8 @@ export const SideBar = () => {
                     bg-white/10 backdrop-blur-md border border-green-500/10
                     shadow-lg ">
       <div className="flex items-center gap-3 mb-8">
-        <img src="/Tron2.png" className="w-[50px] h-[60px]" />
-        <img src="/Tron3.png" className="w-[100px] h-[50px]" />
+        <img src="/earthh.png" className="w-[50px] h-[60px]" />
+    <p className="text-green-900 font-semibold">Carbon Footprint Tracker</p>
       </div>
 
       <NavLink
