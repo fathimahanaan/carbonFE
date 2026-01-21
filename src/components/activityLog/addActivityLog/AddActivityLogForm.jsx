@@ -32,7 +32,6 @@ const CalculateEmissionsPage = () => {
 
   const { options, loading: loadingOptions } = useGetVehicleOptions(activity);
 
-  
   const handleAddFoodItem = () => {
     if (!foodProduct || !foodUnit || !foodAmount) return;
 
@@ -50,9 +49,14 @@ const CalculateEmissionsPage = () => {
     setFoodAmount("");
   };
 
- 
   const handleSubmit = async () => {
-    if (!activity || !distance || !energyActivity || !amount || foodItems.length === 0)
+    if (
+      !activity ||
+      !distance ||
+      !energyActivity ||
+      !amount ||
+      foodItems.length === 0
+    )
       return;
 
     await calculateEmissions({
@@ -68,7 +72,7 @@ const CalculateEmissionsPage = () => {
         unit: energyUnit,
         amount: Number(amount),
       },
-      foodItems, 
+      foodItems,
     });
   };
 
@@ -108,9 +112,24 @@ const CalculateEmissionsPage = () => {
             list={options.activities}
           />
 
-          <FormSelect title="Type" value={type} onChange={(e) => setType(e.target.value)} list={options.types} />
-          <FormSelect title="Fuel" value={fuel} onChange={(e) => setFuel(e.target.value)} list={options.fuels} />
-          <FormSelect title="Unit" value={unit} onChange={(e) => setUnit(e.target.value)} list={options.units} />
+          <FormSelect
+            title="Type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            list={options.types}
+          />
+          <FormSelect
+            title="Fuel"
+            value={fuel}
+            onChange={(e) => setFuel(e.target.value)}
+            list={options.fuels}
+          />
+          <FormSelect
+            title="Unit"
+            value={unit}
+            onChange={(e) => setUnit(e.target.value)}
+            list={options.units}
+          />
 
           <FormInput
             label="Distance"
@@ -144,7 +163,7 @@ const CalculateEmissionsPage = () => {
           foodAmount={foodAmount}
           setFoodAmount={setFoodAmount}
           onAddFood={handleAddFoodItem} // ✅ PASSED
-          foodItems={foodItems}         // ✅ PASSED
+          foodItems={foodItems} // ✅ PASSED
         />
       )}
 
@@ -157,86 +176,115 @@ const CalculateEmissionsPage = () => {
       </button>
 
       {result ? (
-  <motion.div
-    className="mt-6 rounded-2xl bg-white/70 backdrop-blur-md border border-white/20 shadow-lg overflow-hidden"
-    initial={{ opacity: 0, y: 12 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.35, ease: "easeOut" }}
-  >
-    <div className="px-6 py-5 border-b border-white/20 flex items-center justify-between">
-      <h2 className="text-lg font-semibold text-gray-900">
-        🌿 Emission Result
-      </h2>
-      <span className="text-sm font-medium text-gray-500">
-        {new Date().toLocaleString()}
-      </span>
-    </div>
-
-    <div className="p-6 grid gap-4 md:grid-cols-2">
-      {result.vehicle?.data && (
-        <div className="p-4 rounded-xl bg-green-50 border border-green-100">
-          <h3 className="font-semibold text-green-800">Vehicle</h3>
-          <p className="text-sm text-gray-600 mt-1">
-            Activity: <span className="font-medium">{result.vehicle.data.activity}</span>
-          </p>
-          <p className="text-sm text-gray-600 mt-1">
-            Emission:{" "}
-            <span className="font-semibold text-green-900">
-              {result.vehicle.totalEmission.toFixed(2)} kg CO₂e
+        <motion.div
+          className="mt-6 rounded-2xl bg-white/70 backdrop-blur-md border border-white/20 shadow-lg overflow-hidden"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+        >
+          <div className="px-6 py-5 border-b border-white/20 flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-gray-900">
+              🌿 Emission Result
+            </h2>
+            <span className="text-sm font-medium text-gray-500">
+              {new Date().toLocaleString()}
             </span>
-          </p>
-        </div>
-      )}
+          </div>
 
-      {result.energy?.data && (
-        <div className="p-4 rounded-xl bg-blue-50 border border-blue-100">
-          <h3 className="font-semibold text-blue-800">Energy</h3>
-          <p className="text-sm text-gray-700 mt-1">
-            Activity: <span className="font-bold">{result.energy.data.activity}</span>
-          </p>
-          <p className="text-sm text-gray-700 mt-1">
-            Emission:{" "}
-            <span className="font-semibold text-blue-900">
-              {result.energy.totalEmission.toFixed(2)} kg CO₂e
-            </span>
-          </p>
-        </div>
-      )}
+          <div className="p-6 grid gap-4 md:grid-cols-2">
+            {result.vehicle?.data && (
+              <div className="p-4 rounded-xl bg-green-50 border border-green-100">
+                <h3 className="font-semibold text-green-800">Vehicle</h3>
+                <p className="text-sm text-gray-600 mt-1">
+                  Activity:{" "}
+                  <span className="font-bold">
+                    {result.vehicle.data.activity}
+                  </span>
+                </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  Type:{" "}
+                  <span className="font-bold">
+                    {result.vehicle.data.type}
+                  </span>
+                </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  Fuel:{" "}
+                  <span className="font-bold">
+                    {result.vehicle.data.fuel}
+                  </span>
+                </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  Unit:{" "}
+                  <span className="font-bold">
+                    {result.vehicle.data.unit}
+                  </span>
+                </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  Emission:{" "}
+                  <span className="font-bold text-green-900">
+                    {result.vehicle.totalEmission.toFixed(2)} kg CO₂e
+                  </span>
+                </p>
+              </div>
+            )}
 
-  {Array.isArray(result.food) && result.food.length > 0 && (
-  <div className="p-4 rounded-xl bg-yellow-50 border border-yellow-100">
-    <h3 className="font-semibold text-yellow-800 mb-2">Food</h3>
+            {result.energy?.data && (
+              <div className="p-4 rounded-xl bg-blue-50 border border-blue-100">
+                <h3 className="font-semibold text-blue-800">Energy</h3>
+                <p className="text-sm text-gray-700 mt-1">
+                  Activity:{" "}
+                  <span className="font-bold">
+                    {result.energy.data.activity}
+                  </span>
+                </p>
+                <p className="text-sm text-gray-700 mt-1">
+                  Unit:{" "}
+                  <span className="font-bold">
+                    {result.energy.data.unit}
+                  </span>
+                </p>
+                <p className="text-sm text-gray-700 mt-1">
+                  Emission:{" "}
+                  <span className="font-bold text-blue-900">
+                    {result.energy.totalEmission.toFixed(2)} kg CO₂e
+                  </span>
+                </p>
+              </div>
+            )}
 
-    {result.food.map((item, index) => (
-      <div key={index} className="mb-2">
-        <p className="text-sm text-gray-600">
-          Product: <span className="font-bold">{item.data.product}</span>
-        </p>
-        <p className="text-sm text-gray-600">
-          Emission:{" "}
-          <span className="font-semibold text-yellow-900">
-            {item.totalEmission.toFixed(2)} kg CO₂e
-          </span>
-        </p>
-      </div>
-    ))}
-  </div>
-)}
+            {Array.isArray(result.food) && result.food.length > 0 && (
+              <div className="p-4 rounded-xl bg-yellow-50 border border-yellow-100">
+                <h3 className="font-bold text-yellow-800 mb-2">Food</h3>
 
+                {result.food.map((item, index) => (
+                  <div key={index} className="mb-2">
+                    <p className="text-sm text-gray-600">
+                      <span className="font-bold">{item.data.product}</span>
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Emission:{" "}
+                      <span className="font-semibold text-yellow-900">
+                        {item.totalEmission.toFixed(2)} kg CO₂e
+                      </span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
 
-      <div className="p-4 rounded-xl bg-blue-600 text-white border border-white/10 md:col-span-2">
-        <h3 className="font-semibold">Total Emission</h3>
-        <p className="text-2xl font-bold mt-1">
-          {result.totalEmission.toFixed(2)} <span className="text-sm font-medium">kg CO₂e</span>
-        </p>
-        <p className="text-sm text-gray-300 mt-2">
-          Keep tracking your impact 🌍
-        </p>
-      </div>
-    </div>
-  </motion.div>
-) : null}
-
+            <div className="p-4 rounded-xl bg-blue-500 text-white border border-white/10 md:col-span-2">
+              <h3 className="font-semibold">Total Emission</h3>
+              <p className="text-2xl font-bold mt-1">
+                {result.totalEmission.toFixed(2)}{" "}
+                <span className="text-sm font-medium">kg CO₂e</span>
+              </p>
+              <p className="text-sm text-gray-300 mt-2">
+                Keep tracking your impact 🌍
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      ) : null}
     </div>
   );
 };
