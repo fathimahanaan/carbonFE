@@ -1,4 +1,3 @@
-import React from "react";
 import FormSelect from "../../FormSelect";
 import FormInput from "../../FormInput";
 import useGetAllFood from "../../../hooks/food/useGetAllFood";
@@ -10,11 +9,13 @@ const AddFoodForm = ({
   setFoodUnit,
   foodAmount,
   setFoodAmount,
+  onAddFood,
+  foodItems = [],  
 }) => {
   const { options, loading } = useGetAllFood();
 
   return (
-    <section className="mb-6 p-4 border border-[#006400] rounded">
+    <section className="mb-6 p-4 border rounded">
       <h2 className="font-semibold mb-2">Food</h2>
 
       {loading ? (
@@ -24,7 +25,7 @@ const AddFoodForm = ({
           title="Food Product"
           value={foodProduct}
           onChange={(e) => setFoodProduct(e.target.value)}
-          list={options.foodProducts}
+          list={options?.foodProducts || []}
         />
       )}
 
@@ -38,11 +39,29 @@ const AddFoodForm = ({
       <FormInput
         label="Amount"
         type="number"
-        min="0"
         value={foodAmount}
         onChange={(e) => setFoodAmount(e.target.value)}
-        placeholder="Enter amount"
       />
+
+      {onAddFood && (
+        <button
+          type="button"
+          onClick={onAddFood}
+          className="mt-3 px-4 py-2 bg-green-600 text-white rounded"
+        >
+          + Add Food
+        </button>
+      )}
+
+      {foodItems.length > 0 && (
+        <ul className="mt-4 text-sm">
+          {foodItems.map((item, i) => (
+            <li key={i}>
+              {item.product} – {item.amount} {item.unit}
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 };

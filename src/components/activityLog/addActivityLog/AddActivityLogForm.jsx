@@ -1,36 +1,58 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import FormSelect from "../../FormSelect";
 import FormInput from "../../FormInput";
 import useCalculateAllEmissions from "../../../hooks/history/useCalculateAllEmissions";
 import useGetVehicleOptions from "../../../hooks/vehicle/useGetVehicleOptions";
-import ResultRow from "../../ResultRow";
 import AddEnergyForm from "./AddEnergyForm";
 import AddFoodForm from "./AddFoodForm";
- 
+
 const CalculateEmissionsPage = () => {
   const { loading, result, calculateEmissions } = useCalculateAllEmissions();
 
   const [activeTab, setActiveTab] = useState("vehicle");
 
+  // Vehicle
   const [activity, setActivity] = useState("");
   const [type, setType] = useState("");
   const [fuel, setFuel] = useState("");
   const [unit, setUnit] = useState("");
   const [distance, setDistance] = useState("");
 
+  // Energy
   const [energyActivity, setEnergyActivity] = useState("");
   const [energyUnit, setEnergyUnit] = useState("");
   const [amount, setAmount] = useState("");
 
+  // Food (input + list)
   const [foodProduct, setFoodProduct] = useState("");
   const [foodUnit, setFoodUnit] = useState("");
   const [foodAmount, setFoodAmount] = useState("");
+  const [foodItems, setFoodItems] = useState([]); // ✅ ADDED
 
   const { options, loading: loadingOptions } = useGetVehicleOptions(activity);
 
+  
+  const handleAddFoodItem = () => {
+    if (!foodProduct || !foodUnit || !foodAmount) return;
+
+    setFoodItems((prev) => [
+      ...prev,
+      {
+        product: foodProduct,
+        unit: foodUnit,
+        amount: Number(foodAmount),
+      },
+    ]);
+
+    setFoodProduct("");
+    setFoodUnit("");
+    setFoodAmount("");
+  };
+
+ 
   const handleSubmit = async () => {
-    if (!activity || !distance || !energyActivity || !amount || !foodProduct)
+    if (!activity || !distance || !energyActivity || !amount || foodItems.length === 0)
       return;
 
     await calculateEmissions({
@@ -46,13 +68,7 @@ const CalculateEmissionsPage = () => {
         unit: energyUnit,
         amount: Number(amount),
       },
-      foodItems: [
-        {
-          product: foodProduct,
-          unit: foodUnit,
-          amount: Number(foodAmount),
-        },
-      ],
+      foodItems, 
     });
   };
 
@@ -60,45 +76,26 @@ const CalculateEmissionsPage = () => {
     <div className="p-8 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Calculate All Emissions</h1>
 
+      {/* Tabs */}
       <div className="flex mb-4 border-b border-white/20 bg-white/10 backdrop-blur-md rounded-sm overflow-hidden">
-        <button
-          onClick={() => setActiveTab("vehicle")}
-          className={`w-1/3 py-3 font-semibold transition-all duration-300 ${
-            activeTab === "vehicle"
-              ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white shadow-inner"
-              : "bg-white/10 text-green-900 hover:bg-white/20"
-          }`}
-        >
-          Vehicle
-        </button>
-
-        <button
-          onClick={() => setActiveTab("energy")}
-          className={`w-1/3 py-3 font-semibold transition-all duration-300 ${
-            activeTab === "energy"
-              ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white shadow-inner"
-              : "bg-white/10 text-green-900 hover:bg-white/20"
-          }`}
-        >
-          Energy
-        </button>
-
-        <button
-          onClick={() => setActiveTab("food")}
-          className={`w-1/3 py-3 font-semibold transition-all duration-300 ${
-            activeTab === "food"
-              ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white shadow-inner"
-              : "bg-white/10 text-green-900 hover:bg-white/20"
-          }`}
-        >
-          Food
-        </button>
+        {["vehicle", "energy", "food"].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`w-1/3 py-3 font-semibold transition-all ${
+              activeTab === tab
+                ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white"
+                : "bg-white/10 text-green-900"
+            }`}
+          >
+            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+          </button>
+        ))}
       </div>
 
+      {/* Vehicle */}
       {activeTab === "vehicle" && (
         <section className="mb-6 p-4 rounded">
-          <h2 className="font-semibold mb-2">Vehicle</h2>
-
           <FormSelect
             title="Activity"
             value={activity}
@@ -111,26 +108,9 @@ const CalculateEmissionsPage = () => {
             list={options.activities}
           />
 
-          <FormSelect
-            title="Type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            list={options.types}
-          />
-
-          <FormSelect
-            title="Fuel"
-            value={fuel}
-            onChange={(e) => setFuel(e.target.value)}
-            list={options.fuels}
-          />
-
-          <FormSelect
-            title="Unit"
-            value={unit}
-            onChange={(e) => setUnit(e.target.value)}
-            list={options.units}
-          />
+          <FormSelect title="Type" value={type} onChange={(e) => setType(e.target.value)} list={options.types} />
+          <FormSelect title="Fuel" value={fuel} onChange={(e) => setFuel(e.target.value)} list={options.fuels} />
+          <FormSelect title="Unit" value={unit} onChange={(e) => setUnit(e.target.value)} list={options.units} />
 
           <FormInput
             label="Distance"
@@ -138,11 +118,11 @@ const CalculateEmissionsPage = () => {
             min="0"
             value={distance}
             onChange={(e) => setDistance(e.target.value)}
-            placeholder="Enter distance"
           />
         </section>
       )}
 
+      {/* Energy */}
       {activeTab === "energy" && (
         <AddEnergyForm
           energyActivity={energyActivity}
@@ -154,6 +134,7 @@ const CalculateEmissionsPage = () => {
         />
       )}
 
+      {/* Food */}
       {activeTab === "food" && (
         <AddFoodForm
           foodProduct={foodProduct}
@@ -162,6 +143,8 @@ const CalculateEmissionsPage = () => {
           setFoodUnit={setFoodUnit}
           foodAmount={foodAmount}
           setFoodAmount={setFoodAmount}
+          onAddFood={handleAddFoodItem} // ✅ PASSED
+          foodItems={foodItems}         // ✅ PASSED
         />
       )}
 
@@ -220,20 +203,26 @@ const CalculateEmissionsPage = () => {
         </div>
       )}
 
-      {result.food?.length > 0 && (
-        <div className="p-4 rounded-xl bg-yellow-50 border border-yellow-100">
-          <h3 className="font-semibold text-yellow-800">Food</h3>
-          <p className="text-sm text-gray-600 mt-1">
-          Product: <span className= "font-bold">{result.food[0].data.product}</span>
-          </p>
-          <p className="text-sm text-gray-600 mt-1">
-            Emission:{" "}
-            <span className="font-semibold text-yellow-900">
-              {result.food[0].totalEmission.toFixed(2)} kg CO₂e
-            </span>
-          </p>
-        </div>
-      )}
+  {Array.isArray(result.food) && result.food.length > 0 && (
+  <div className="p-4 rounded-xl bg-yellow-50 border border-yellow-100">
+    <h3 className="font-semibold text-yellow-800 mb-2">Food</h3>
+
+    {result.food.map((item, index) => (
+      <div key={index} className="mb-2">
+        <p className="text-sm text-gray-600">
+          Product: <span className="font-bold">{item.data.product}</span>
+        </p>
+        <p className="text-sm text-gray-600">
+          Emission:{" "}
+          <span className="font-semibold text-yellow-900">
+            {item.totalEmission.toFixed(2)} kg CO₂e
+          </span>
+        </p>
+      </div>
+    ))}
+  </div>
+)}
+
 
       <div className="p-4 rounded-xl bg-blue-600 text-white border border-white/10 md:col-span-2">
         <h3 className="font-semibold">Total Emission</h3>
