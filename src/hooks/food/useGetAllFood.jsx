@@ -5,8 +5,9 @@ import { base_url } from "../../utils/constants";
 
 export const useGetAllFood = () => {
   const [options, setOptions] = useState({
-    activities: [],
+    foodProducts: [],
   });
+
   const [loading, setLoading] = useState(false);
 
   const getFoodOptions = async () => {
@@ -16,14 +17,16 @@ export const useGetAllFood = () => {
         withCredentials: true,
       });
 
+      console.log("🍔 FOOD OPTIONS API:", res.data);
+
       setOptions({
-        activities: res.data.activities,
+        foodProducts: res.data.activities || [],
       });
     } catch (err) {
       toast.error(
         err?.response?.data?.message ||
           err?.message ||
-          "Failed to load options"
+          "Failed to load options",
       );
     } finally {
       setLoading(false);

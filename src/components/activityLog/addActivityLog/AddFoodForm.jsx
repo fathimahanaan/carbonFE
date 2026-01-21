@@ -1,40 +1,50 @@
-import React, { useState } from 'react';
+import React from "react";
+import FormSelect from "../../FormSelect";
+import FormInput from "../../FormInput";
+import useGetAllFood from "../../../hooks/food/useGetAllFood";
 
-// Assumes FormSelect, FormInput, and options are imported from elsewhere
-// import { FormSelect, FormInput } from './FormComponents';
-// import { options } from './options';
-
-export const AddFoodForm = () => {
-  const [foodActivity, setFoodActivity] = useState('');
-  const [energyUnit, setEnergyUnit] = useState('');
-  const [amount, setAmount] = useState('');
+const AddFoodForm = ({
+  foodProduct,
+  setFoodProduct,
+  foodUnit,
+  setFoodUnit,
+  foodAmount,
+  setFoodAmount,
+}) => {
+  const { options, loading } = useGetAllFood();
 
   return (
     <section className="mb-6 p-4 border border-[#006400] rounded">
-      <h2 className="font-semibold mb-2">Energy</h2>
+      <h2 className="font-semibold mb-2">Food</h2>
 
-      <FormSelect
-        title="Activity"
-        value={foodActivity}
-        onChange={(e) => setFoodActivity(e.target.value)}
-        list={options.activities}
-      />
+      {loading ? (
+        <p>Loading food products...</p>
+      ) : (
+        <FormSelect
+          title="Food Product"
+          value={foodProduct}
+          onChange={(e) => setFoodProduct(e.target.value)}
+          list={options.foodProducts}
+        />
+      )}
 
       <FormSelect
         title="Unit"
-        value={energyUnit}
-        onChange={(e) => setEnergyUnit(e.target.value)}
-        list={options.units}
+        value={foodUnit}
+        onChange={(e) => setFoodUnit(e.target.value)}
+        list={["kg", "g"]}
       />
 
       <FormInput
         label="Amount"
         type="number"
         min="0"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
+        value={foodAmount}
+        onChange={(e) => setFoodAmount(e.target.value)}
         placeholder="Enter amount"
       />
     </section>
   );
 };
+
+export default AddFoodForm;
