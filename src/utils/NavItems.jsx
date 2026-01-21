@@ -1,16 +1,18 @@
  
-import { FaCalculator, FaRegCreditCard, FaUserGraduate } from 'react-icons/fa6';
+import {  FaRegCreditCard} from 'react-icons/fa6';
+import { ImHistory } from 'react-icons/im';
+import { IoEarthSharp } from 'react-icons/io5';
 
 export const navItems = [
   {
     id: 1,
-    icon: <FaCalculator />,
+    icon: <IoEarthSharp />,
     name: "Activity Log",
     path: "/activity",
   },
     {
     id: 2,
-    icon: <FaUserGraduate />,
+    icon: <ImHistory />,
     name: "History",
     path: "/students",
   },

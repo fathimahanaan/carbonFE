@@ -42,6 +42,9 @@ const CalculateEmissionsPage = () => {
         unit: energyUnit,
         amount: Number(amount),
       },
+        fooData: {
+       
+      },
     });
   };
 
@@ -54,7 +57,7 @@ const CalculateEmissionsPage = () => {
 <div className="flex mb-4 border-b border-white/20 bg-white/10 backdrop-blur-md rounded-sm overflow-hidden">
   <button
     onClick={() => setActiveTab("vehicle")}
-    className={`w-1/2 py-3 font-semibold transition-all duration-300
+    className={`w-1/4 py-3 font-semibold transition-all duration-300
       ${
         activeTab === "vehicle"
           ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white shadow-inner"
@@ -66,7 +69,7 @@ const CalculateEmissionsPage = () => {
 
   <button
     onClick={() => setActiveTab("energy")}
-    className={`w-1/2 py-3 font-semibold transition-all duration-300
+    className={`w-1/4 py-3 font-semibold transition-all duration-300
       ${
         activeTab === "energy"
           ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white shadow-inner"
@@ -75,6 +78,7 @@ const CalculateEmissionsPage = () => {
   >
     Energy
   </button>
+ 
 </div>
       
 
