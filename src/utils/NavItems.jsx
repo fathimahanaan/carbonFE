@@ -14,7 +14,7 @@ export const navItems = [
     id: 2,
     icon: <ImHistory />,
     name: "History",
-    path: "/students",
+    path: "/history",
   },
   {
     id: 3,

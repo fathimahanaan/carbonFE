@@ -5,6 +5,8 @@ import { ErrorPage } from './pages/errorPage/ErrorPage';
 import { DashboardPage } from './pages/dashboard/DashboardPage';
 import { Layout } from './pages/Layout';
 import LoginPage from './pages/login/LoginPage';
+ 
+import HistoryPage from './pages/history/HistoryPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -15,6 +17,7 @@ function App() {
       children: [   
         { index: true, element: <DashboardPage /> },
         { path: "activity", element: <ActivityLogPage /> },
+           { path: "history", element: <HistoryPage/> },
       ],
     },
      {
