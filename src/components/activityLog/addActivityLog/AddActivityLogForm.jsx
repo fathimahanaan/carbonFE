@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+ 
 import FormSelect from "../../FormSelect";
 import FormInput from "../../FormInput";
 import useCalculateAllEmissions from "../../../hooks/history/useCalculateAllEmissions";
@@ -176,7 +176,7 @@ const CalculateEmissionsPage = () => {
       </button>
 
       {result ? (
-        <motion.div
+        <div
           className="mt-6 rounded-2xl bg-white/70 backdrop-blur-md border border-white/20 shadow-lg overflow-hidden"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -283,7 +283,7 @@ const CalculateEmissionsPage = () => {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
       ) : null}
     </div>
   );
