@@ -1,8 +1,9 @@
 import React from "react";
-import { MdDashboard } from "react-icons/md";
+ 
 import { navItems } from "../../utils/NavItems";
 import { NavItem } from "./NavItem";
 import { NavLink } from "react-router-dom";
+import { CgInsights } from "react-icons/cg";
 
 export const SideBar = () => {
   return (
@@ -20,13 +21,13 @@ export const SideBar = () => {
           `flex items-center gap-3 py-3 px-3 rounded-xl transition-all duration-300
            ${
              isActive
-               ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-green-700 shadow-xl"
-               : "text-green-900 hover:bg-white hover:text-green-900"
+               ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white shadow-xl"
+               : "text-green-900 hover:bg-[#f0fff4] hover:text-green"
            }`
         }
       >
-        <MdDashboard size={20} />
-        <span className="font-semibold">Dashboard</span>
+        <CgInsights size={20} />
+        <span className="font-semibold">Insights</span>
       </NavLink>
 
       <div className="mt-6 flex flex-col gap-2">

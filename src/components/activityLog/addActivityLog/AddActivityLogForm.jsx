@@ -162,17 +162,17 @@ const CalculateEmissionsPage = () => {
           setFoodUnit={setFoodUnit}
           foodAmount={foodAmount}
           setFoodAmount={setFoodAmount}
-          onAddFood={handleAddFoodItem} // ✅ PASSED
-          foodItems={foodItems} // ✅ PASSED
+          onAddFood={handleAddFoodItem}  
+          foodItems={foodItems}  
         />
       )}
 
       <button
         onClick={handleSubmit}
         disabled={loading || loadingOptions}
-        className="px-6 py-3 bg-green-500 text-white rounded"
+        className="px-6 py-3 bg-green-700 text-white rounded"
       >
-        {loading ? "Calculating..." : "Calculate All Emissions"}
+        {loading ? "Calculating..." : "Calculate"}
       </button>
 
       {result ? (

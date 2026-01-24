@@ -47,9 +47,9 @@ const AddFoodForm = ({
         <button
           type="button"
           onClick={onAddFood}
-          className="mt-3 px-4 py-2 bg-green-600 text-white rounded"
+          className="mt-3   text-green-700 hover:text-green-200 rounded"
         >
-          + Add Food
+          + Add 
         </button>
       )}
 
