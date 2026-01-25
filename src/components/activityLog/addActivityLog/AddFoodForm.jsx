@@ -10,7 +10,7 @@ const AddFoodForm = ({
   foodAmount,
   setFoodAmount,
   onAddFood,
-  foodItems = [],  
+  foodItems = [],
 }) => {
   const { options, loading } = useGetAllFood();
 
@@ -49,7 +49,7 @@ const AddFoodForm = ({
           onClick={onAddFood}
           className="mt-3   text-green-700 hover:text-green-200 rounded"
         >
-          + Add 
+          + Add
         </button>
       )}
 

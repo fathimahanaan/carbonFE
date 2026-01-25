@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import useLogin from "../../hooks/auth/useLogin";
-import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const { login, loading } = useLogin();
@@ -8,22 +7,20 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    try {
-      await login({ userId, password });
-      toast.success("Logged in successfully!");
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Login failed");
-    }
+    await login({ userId, password });
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-green-300">
       <div className="flex bg-gradient-to-br from-green-200 to-green-100 rounded-2xl shadow-xl overflow-hidden max-w-4xl w-full">
-        
         {/* Left Side - Form */}
         <div className="w-full md:w-1/2 p-10">
-          <h2 className="text-[#006400] text-3xl font-bold mb-2">Welcome Back</h2>
-          <p className="text-[#006400] mb-8">Log into your account to continue</p>
+          <h2 className="text-[#006400] text-3xl font-bold mb-2">
+            Welcome Back
+          </h2>
+          <p className="text-[#006400] mb-8">
+            Log into your account to continue
+          </p>
 
           <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
             <input
@@ -54,7 +51,10 @@ const LoginPage = () => {
 
           <div className="text-center mt-6 text-gray-500 text-sm">
             Don't have an account?{" "}
-            <a href="/signup" className="text-green-600 font-semibold hover:underline">
+            <a
+              href="/signup"
+              className="text-green-600 font-semibold hover:underline"
+            >
               Sign Up
             </a>
           </div>
@@ -68,10 +68,12 @@ const LoginPage = () => {
             className="w-full h-full object-cover"
           />
         </div>
-
       </div>
     </div>
   );
 };
 
 export default LoginPage;
+
+// d3edc871-f5c8-4df3-8b44-049d9b353b14
+// password:password or try hanaan

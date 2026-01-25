@@ -1,5 +1,5 @@
 import React from "react";
- 
+
 import { navItems } from "../../utils/NavItems";
 import { NavItem } from "./NavItem";
 import { NavLink } from "react-router-dom";
@@ -7,12 +7,14 @@ import { CgInsights } from "react-icons/cg";
 
 export const SideBar = () => {
   return (
-    <div className="w-[320px] h-screen p-6 flex flex-col
+    <div
+      className="w-[320px] h-screen p-6 flex flex-col
                     bg-white/10 backdrop-blur-md border border-green-500/10
-                    shadow-lg ">
+                    shadow-lg "
+    >
       <div className="flex items-center gap-3 mb-8">
         <img src="/earthh.png" className="w-[50px] h-[60px]" />
-    <p className="text-green-900 font-semibold">Carbon Footprint Tracker</p>
+        <p className="text-green-900 font-semibold">Carbon Footprint Tracker</p>
       </div>
 
       <NavLink

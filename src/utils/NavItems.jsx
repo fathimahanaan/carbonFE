@@ -9,17 +9,20 @@ export const navItems = [
     icon: <IoEarthSharp />,
     name: "Activity Log",
     path: "/activity",
+    role: "user",
   },
     {
     id: 2,
     icon: <ImHistory />,
     name: "History",
     path: "/history",
+    role: "user",
   },
   {
     id: 3,
     icon: <FaCanadianMapleLeaf />,
     name: "Educational Resources",
     path: "/resources",
+    role: "all"
   },
 ];
