@@ -1,5 +1,5 @@
 import { useState } from "react";
- 
+
 import FormSelect from "../../FormSelect";
 import FormInput from "../../FormInput";
 import useCalculateAllEmissions from "../../../hooks/history/useCalculateAllEmissions";
@@ -77,8 +77,13 @@ const CalculateEmissionsPage = () => {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Calculate All Emissions</h1>
+    <div className="p-8   max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold tracking-tight text-green-900 mb-2">
+        Calculate your emission
+      </h1>
+      <p className="text-sm font-semibold text-gray-500 mb-6">
+        Get a complete breakdown of your environmental impact
+      </p>
 
       {/* Tabs */}
       <div className="flex mb-4 border-b border-white/20 bg-white/10 backdrop-blur-md rounded-sm overflow-hidden">
@@ -100,6 +105,16 @@ const CalculateEmissionsPage = () => {
       {/* Vehicle */}
       {activeTab === "vehicle" && (
         <section className="mb-6 p-4 rounded">
+          <div className="mb-4">
+            <h2 className="text-lg font-bold text-green-700 flex items-center gap-2">
+              🚗 Vehicle Emissions
+            </h2>
+            <p className="text-sm font-semibold text-gray-600 mt-1">
+              Provide details about your travel to calculate vehicle-related
+              emissions.
+            </p>
+          </div>
+
           <FormSelect
             title="Activity"
             value={activity}
@@ -111,6 +126,9 @@ const CalculateEmissionsPage = () => {
             }}
             list={options.activities}
           />
+          <p className="text-sm font-semibold text-gray-500 mb-3">
+            Select the type of travel (e.g. personal commute, business travel).
+          </p>
 
           <FormSelect
             title="Type"
@@ -118,18 +136,28 @@ const CalculateEmissionsPage = () => {
             onChange={(e) => setType(e.target.value)}
             list={options.types}
           />
+          <p className="text-sm font-semibold text-gray-500 mb-3">
+            Choose the vehicle used for this activity.
+          </p>
+
           <FormSelect
             title="Fuel"
             value={fuel}
             onChange={(e) => setFuel(e.target.value)}
             list={options.fuels}
           />
+          <p className="text-sm font-semibold text-gray-500 mb-3">
+            Fuel selection affects emission intensity.
+          </p>
           <FormSelect
             title="Unit"
             value={unit}
             onChange={(e) => setUnit(e.target.value)}
             list={options.units}
           />
+          <p className="text-sm font-semibold text-gray-500 mb-3">
+            Select the unit used to measure travel distance.
+          </p>
 
           <FormInput
             label="Distance"
@@ -137,7 +165,11 @@ const CalculateEmissionsPage = () => {
             min="0"
             value={distance}
             onChange={(e) => setDistance(e.target.value)}
+            placeholder="e.g. 250"
           />
+          <p className="text-sm font-semibold text-gray-500 mt-1">
+            Enter the total distance traveled for this activity.
+          </p>
         </section>
       )}
 
@@ -162,8 +194,8 @@ const CalculateEmissionsPage = () => {
           setFoodUnit={setFoodUnit}
           foodAmount={foodAmount}
           setFoodAmount={setFoodAmount}
-          onAddFood={handleAddFoodItem}  
-          foodItems={foodItems}  
+          onAddFood={handleAddFoodItem}
+          foodItems={foodItems}
         />
       )}
 
@@ -203,21 +235,15 @@ const CalculateEmissionsPage = () => {
                 </p>
                 <p className="text-sm text-gray-600 mt-1">
                   Type:{" "}
-                  <span className="font-bold">
-                    {result.vehicle.data.type}
-                  </span>
+                  <span className="font-bold">{result.vehicle.data.type}</span>
                 </p>
                 <p className="text-sm text-gray-600 mt-1">
                   Fuel:{" "}
-                  <span className="font-bold">
-                    {result.vehicle.data.fuel}
-                  </span>
+                  <span className="font-bold">{result.vehicle.data.fuel}</span>
                 </p>
                 <p className="text-sm text-gray-600 mt-1">
                   Unit:{" "}
-                  <span className="font-bold">
-                    {result.vehicle.data.unit}
-                  </span>
+                  <span className="font-bold">{result.vehicle.data.unit}</span>
                 </p>
                 <p className="text-sm text-gray-600 mt-1">
                   Emission:{" "}
@@ -239,9 +265,7 @@ const CalculateEmissionsPage = () => {
                 </p>
                 <p className="text-sm text-gray-700 mt-1">
                   Unit:{" "}
-                  <span className="font-bold">
-                    {result.energy.data.unit}
-                  </span>
+                  <span className="font-bold">{result.energy.data.unit}</span>
                 </p>
                 <p className="text-sm text-gray-700 mt-1">
                   Emission:{" "}

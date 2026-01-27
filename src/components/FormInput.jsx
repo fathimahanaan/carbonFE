@@ -24,7 +24,7 @@ const FormInput = ({
         placeholder={placeholder}
         disabled={disabled}
         min={min}
-        className="border border-green-500 p-2 w-full rounded"
+        className="border border-green-500 outline-none   p-2 w-full rounded"
       />
     </div>
   );

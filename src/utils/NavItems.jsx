@@ -10,6 +10,7 @@ export const navItems = [
     name: "Activity Log",
     path: "/activity",
     role: "user",
+    description: "Calculate your emission",
   },
     {
     id: 2,
@@ -17,12 +18,14 @@ export const navItems = [
     name: "History",
     path: "/history",
     role: "user",
+     description: "Your past emissions",
   },
   {
     id: 3,
     icon: <FaCanadianMapleLeaf />,
     name: "Educational Resources",
     path: "/resources",
-    role: "all"
+    role: "all",
+    description: "tips and resources",
   },
 ];

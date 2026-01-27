@@ -1,6 +1,7 @@
 import React from "react";
 import useGetHistory from "../../hooks/history/useGetHistory";
 import { useDeleteHistory } from "../../hooks/history/useDeleteHistory";
+import { MdDeleteOutline } from "react-icons/md";
 
 export default function History() {
   const { loading, history, refetch } = useGetHistory();
@@ -12,24 +13,28 @@ export default function History() {
 
   return (
     <div className="min-h-screen p-6 bg-gray-100">
-      <h1 className="text-2xl font-bold mb-6">History</h1>
+      <h1 className="text-2xl text-green-700 font-bold pl-2">Emission History</h1>
+      <p className="text-sm text-gray-600 font-semibold p-2 ">
+        Review, analyze, or remove previously calculated emission records.
+      </p>
 
       {history.map((r) => (
         <div key={r._id} className="bg-white p-4 mb-4 rounded-lg shadow">
-          
           {/* Delete Button */}
           <button
             onClick={async () => {
-              const confirm = window.confirm("Are you sure you want to delete this record?");
+              const confirm = window.confirm(
+                "Are you sure you want to delete this record?",
+              );
               if (!confirm) return;
 
               await deleteHistory(r._id);
-              refetch(); // <-- REFRESH LIST AFTER DELETE
+              refetch();
             }}
             disabled={deleteLoading}
-            className="px-4 py-1 mb-2 rounded bg-red-100 text-red-700 text-sm"
+            className="px-1 py-1 p-2 rounded  text-red-700 text-sm hover hover:text-red-500"
           >
-            Delete
+            <MdDeleteOutline size={20} />
           </button>
 
           {/* Date */}
@@ -57,7 +62,10 @@ export default function History() {
             details={
               r.food.length
                 ? r.food
-                    .map((f) => `${f.data.product} (${f.data.amount}${f.data.unit})`)
+                    .map(
+                      (f) =>
+                        `${f.data.product} (${f.data.amount}${f.data.unit})`,
+                    )
                     .join(", ")
                 : "No food entries"
             }
