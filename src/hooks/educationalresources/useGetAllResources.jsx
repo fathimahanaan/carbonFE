@@ -29,5 +29,5 @@ export default function useGetAllResources() {
     getAllResources();
   }, []);
 
-  return { loading, resources };
+  return { resources, loading, refetch: getAllResources };
 }

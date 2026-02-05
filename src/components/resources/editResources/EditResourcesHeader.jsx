@@ -1,8 +1,8 @@
-import React from "react";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import React from 'react'
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 
-const AddResourceHeader = () => {
+export default function EditResourcesHeader() {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -21,5 +21,3 @@ const AddResourceHeader = () => {
     </div>
   );
 };
-
-export default AddResourceHeader;
