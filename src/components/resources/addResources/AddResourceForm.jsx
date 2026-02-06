@@ -14,7 +14,7 @@ export const AddResourceForm = () => {
     e.preventDefault();
 
     await addResources({
-      category: category.trim().toLowerCase(), // ✅ IMPORTANT
+      category: category.trim().toLowerCase(),  
       title: title.trim(),
       fact: fact.trim(),
       tip: type.trim(),

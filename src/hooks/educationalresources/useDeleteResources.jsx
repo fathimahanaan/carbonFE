@@ -11,7 +11,7 @@ export const useDeleteResource = () => {
 
     setLoading(true);
 
-    // 🔥 debug URL
+   
     console.log("Delete URL:", `${base_url}/resources/${id}`);
 
     try {
