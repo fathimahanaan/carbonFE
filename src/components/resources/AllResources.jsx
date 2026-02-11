@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import { CiEdit, CiTrash } from "react-icons/ci";
+import { CiEdit} from "react-icons/ci";
 import { useAuth } from "../../context/AuthContext";
  
 import { IoMdAdd } from "react-icons/io";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useDeleteResource } from "../../hooks/educationalresources/useDeleteResources";
 import useGetAllResources from "../../hooks/educationalresources/useGetAllResources";
+import { MdDeleteOutline } from "react-icons/md";
 
 export const AllResources = () => {
   const { user } = useAuth();
@@ -20,7 +21,7 @@ export const AllResources = () => {
     refetch(); // refresh the list after successful deletion
   };
 
-  if (loading) return <LoadingSpinner message="Loading resources..." />;
+  if (loading) return <LoadingSpinner message="Loading" />;
 
   return (
     <div className="min-h-screen bg-gray-50 px-6 py-8">
@@ -44,9 +45,9 @@ export const AllResources = () => {
         {resources.map((resource) => (
           <div
             key={resource._id}
-            className="relative bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition"
+            className="relative bg-green-200/20 rounded-sm shadow-md p-6"
           >
-            {/* Admin Edit/Delete Icons */}
+             
             {user?.role === "admin" && (
               <div className="absolute top-4 right-4 flex gap-2">
                 <Link
@@ -60,7 +61,7 @@ export const AllResources = () => {
                   disabled={deleting}
                   className="text-red-600 hover:text-red-800"
                 >
-                  <CiTrash className="text-2xl" />
+                  <MdDeleteOutline className="text-2xl" />
                 </button>
               </div>
             )}
@@ -75,7 +76,7 @@ export const AllResources = () => {
               {resource.category}
             </span>
 
-            <h2 className="text-xl font-bold text-gray-900 mt-2 mb-2">
+            <h2 className="text-xl font-bold text-green-900 pt-2 pb-2">
               {resource.title}
             </h2>
 

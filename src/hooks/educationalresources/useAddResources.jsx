@@ -22,7 +22,7 @@ const addResources = async ({
     await axios.post(
       `${base_url}/resources/`,
       {
-        category: category.trim(), // ✅ important
+        category: category.trim(),  
         title,
         fact,
         tip,

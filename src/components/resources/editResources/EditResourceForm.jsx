@@ -13,7 +13,7 @@ export default function EditResourceForm() {
   const [fact, setFact] = useState("");
   const [type, setType] = useState("");
 
-  const { loading: fetching, resource } = useGetSingleResource(id);
+  const { loading: loadingResources, resource } = useGetSingleResource(id);
   const { updateResources, loading: updating } = useUpdateResources();
 
   // Prefill form when resource loads
@@ -37,7 +37,7 @@ export default function EditResourceForm() {
     });
   };
 
-  if (fetching) return <LoadingSpinner message="Loading resources..." />;
+  if (loadingResources) return <LoadingSpinner/>;
 
   return (
     <form onSubmit={handleSubmit} className="pt-4">
@@ -77,12 +77,12 @@ export default function EditResourceForm() {
         <button
           type="submit"
           disabled={updating}
-          className="mt-4 px-4 py-2 bg-green-900 text hover:bg-green-700 text-white font-semibold rounded disabled:opacity-50"
+          className="mt-4 px-4 py-2 bg-green-900 text hover:bg-green-700 text-white font-semibold"
         >
-          {updating ? "Updating..." : "Update Resource"}
+          {updating ? "editing" : "Update Resource"}
         </button>
       </div>
     </form>
   );
 }
-//nice jlklfkglssdfdfsfsfsdfsdf
+ 

@@ -6,10 +6,10 @@ import useCalculateAllEmissions from "../../../hooks/history/useCalculateAllEmis
 import useGetVehicleOptions from "../../../hooks/vehicle/useGetVehicleOptions";
 import AddEnergyForm from "./AddEnergyForm";
 import AddFoodForm from "./AddFoodForm";
+import ResultCard from "../../ResultCard";
 
 const CalculateEmissionsPage = () => {
   const { loading, result, calculateEmissions } = useCalculateAllEmissions();
-
   const [activeTab, setActiveTab] = useState("vehicle");
 
   // Vehicle
@@ -24,14 +24,12 @@ const CalculateEmissionsPage = () => {
   const [energyUnit, setEnergyUnit] = useState("");
   const [amount, setAmount] = useState("");
 
-  // Food (input + list)
+  // Food
   const [foodProduct, setFoodProduct] = useState("");
   const [foodUnit, setFoodUnit] = useState("");
   const [foodAmount, setFoodAmount] = useState("");
-  const [foodItems, setFoodItems] = useState([]); // ✅ ADDED
-
+  const [foodItems, setFoodItems] = useState([]);
   const { options, loading: loadingOptions } = useGetVehicleOptions(activity);
-
   const handleAddFoodItem = () => {
     if (!foodProduct || !foodUnit || !foodAmount) return;
 
@@ -77,8 +75,8 @@ const CalculateEmissionsPage = () => {
   };
 
   return (
-    <div className="p-8   max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold tracking-tight text-green-900 mb-2">
+    <div className="p-8 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold text-green-900 mb-2">
         Calculate your emission
       </h1>
       <p className="text-sm font-semibold text-gray-500 mb-6">
@@ -86,15 +84,15 @@ const CalculateEmissionsPage = () => {
       </p>
 
       {/* Tabs */}
-      <div className="flex mb-4 border-b border-white/20 bg-white/10 backdrop-blur-md rounded-sm overflow-hidden">
+      <div className="flex mb-4 bg-white/10 rounded overflow-hidden">
         {["vehicle", "energy", "food"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`w-1/3 py-3 font-semibold transition-all ${
+            className={`w-1/3 py-3 font-semibold transition ${
               activeTab === tab
                 ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white"
-                : "bg-white/10 text-green-900"
+                : "text-green-900"
             }`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -104,17 +102,7 @@ const CalculateEmissionsPage = () => {
 
       {/* Vehicle */}
       {activeTab === "vehicle" && (
-        <section className="mb-6 p-4 rounded">
-          <div className="mb-4">
-            <h2 className="text-lg font-bold text-green-700 flex items-center gap-2">
-              🚗 Vehicle Emissions
-            </h2>
-            <p className="text-sm font-semibold text-gray-600 mt-1">
-              Provide details about your travel to calculate vehicle-related
-              emissions.
-            </p>
-          </div>
-
+        <section className="mb-6 p-4">
           <FormSelect
             title="Activity"
             value={activity}
@@ -126,9 +114,6 @@ const CalculateEmissionsPage = () => {
             }}
             list={options.activities}
           />
-          <p className="text-sm font-semibold text-gray-500 mb-3">
-            Select the type of travel (e.g. personal commute, business travel).
-          </p>
 
           <FormSelect
             title="Type"
@@ -136,9 +121,6 @@ const CalculateEmissionsPage = () => {
             onChange={(e) => setType(e.target.value)}
             list={options.types}
           />
-          <p className="text-sm font-semibold text-gray-500 mb-3">
-            Choose the vehicle used for this activity.
-          </p>
 
           <FormSelect
             title="Fuel"
@@ -146,18 +128,13 @@ const CalculateEmissionsPage = () => {
             onChange={(e) => setFuel(e.target.value)}
             list={options.fuels}
           />
-          <p className="text-sm font-semibold text-gray-500 mb-3">
-            Fuel selection affects emission intensity.
-          </p>
+
           <FormSelect
             title="Unit"
             value={unit}
             onChange={(e) => setUnit(e.target.value)}
             list={options.units}
           />
-          <p className="text-sm font-semibold text-gray-500 mb-3">
-            Select the unit used to measure travel distance.
-          </p>
 
           <FormInput
             label="Distance"
@@ -165,11 +142,7 @@ const CalculateEmissionsPage = () => {
             min="0"
             value={distance}
             onChange={(e) => setDistance(e.target.value)}
-            placeholder="e.g. 250"
           />
-          <p className="text-sm font-semibold text-gray-500 mt-1">
-            Enter the total distance traveled for this activity.
-          </p>
         </section>
       )}
 
@@ -199,116 +172,89 @@ const CalculateEmissionsPage = () => {
         />
       )}
 
+      {/* Submit */}
       <button
         onClick={handleSubmit}
         disabled={loading || loadingOptions}
-        className="px-6 py-3 bg-green-700 text-white rounded"
+        className="px-6 py-3 bg-green-700 text-white rounded disabled:opacity-50"
       >
         {loading ? "Calculating..." : "Calculate"}
       </button>
 
-      {result ? (
-        <div
-          className="mt-6 rounded-2xl bg-white/70 backdrop-blur-md border border-white/20 shadow-lg overflow-hidden"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-        >
-          <div className="px-6 py-5 border-b border-white/20 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">
+      {/* Results */}
+      {result && (
+        <div className="mt-6  bg-white-100/70">
+          <div className="px-6 py-5   flex justify-between">
+            <h2 className="text-lg font-semibold text-green-600">
               🌿 Emission Result
             </h2>
-            <span className="text-sm font-medium text-gray-500">
+            <span className="text-sm text-gray-500 font-semibold">
               {new Date().toLocaleString()}
             </span>
           </div>
 
           <div className="p-6 grid gap-4 md:grid-cols-2">
             {result.vehicle?.data && (
-              <div className="p-4 rounded-xl bg-green-50 border border-green-100">
-                <h3 className="font-semibold text-green-800">Vehicle</h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  Activity:{" "}
-                  <span className="font-bold">
-                    {result.vehicle.data.activity}
-                  </span>
-                </p>
-                <p className="text-sm text-gray-600 mt-1">
-                  Type:{" "}
-                  <span className="font-bold">{result.vehicle.data.type}</span>
-                </p>
-                <p className="text-sm text-gray-600 mt-1">
-                  Fuel:{" "}
-                  <span className="font-bold">{result.vehicle.data.fuel}</span>
-                </p>
-                <p className="text-sm text-gray-600 mt-1">
-                  Unit:{" "}
-                  <span className="font-bold">{result.vehicle.data.unit}</span>
-                </p>
-                <p className="text-sm text-gray-600 mt-1">
-                  Emission:{" "}
-                  <span className="font-bold text-green-900">
-                    {result.vehicle.totalEmission.toFixed(2)} kg CO₂e
-                  </span>
-                </p>
-              </div>
+              <ResultCard
+                title="Vehicle"
+                theme={{
+                  bg: "bg-gradient-to-r from-white to-green-400/30",
+                  border: "border-green-200",
+                  title: "text-green-800",
+                  emission: "text-green-900",
+                }}
+                rows={[
+                  { label: "Activity", value: result.vehicle.data.activity },
+                  { label: "Type", value: result.vehicle.data.type },
+                  { label: "Fuel", value: result.vehicle.data.fuel },
+                  { label: "Unit", value: result.vehicle.data.unit },
+                ]}
+                emission={result.vehicle.totalEmission}
+              />
             )}
 
             {result.energy?.data && (
-              <div className="p-4 rounded-xl bg-blue-50 border border-blue-100">
-                <h3 className="font-semibold text-blue-800">Energy</h3>
-                <p className="text-sm text-gray-700 mt-1">
-                  Activity:{" "}
-                  <span className="font-bold">
-                    {result.energy.data.activity}
-                  </span>
-                </p>
-                <p className="text-sm text-gray-700 mt-1">
-                  Unit:{" "}
-                  <span className="font-bold">{result.energy.data.unit}</span>
-                </p>
-                <p className="text-sm text-gray-700 mt-1">
-                  Emission:{" "}
-                  <span className="font-bold text-blue-900">
-                    {result.energy.totalEmission.toFixed(2)} kg CO₂e
-                  </span>
-                </p>
-              </div>
+              <ResultCard
+                title="Energy"
+                theme={{
+                  bg: "bg-gradient-to-r from-white to-green-400/30",
+                  border: "border-blue-100",
+                  title: "text-blue-800",
+                  emission: "text-blue-900",
+                }}
+                rows={[
+                  { label: "Activity", value: result.energy.data.activity },
+                  { label: "Unit", value: result.energy.data.unit },
+                ]}
+                emission={result.energy.totalEmission}
+              />
             )}
 
             {Array.isArray(result.food) && result.food.length > 0 && (
-              <div className="p-4 rounded-xl bg-yellow-50 border border-yellow-100">
-                <h3 className="font-bold text-yellow-800 mb-2">Food</h3>
-
-                {result.food.map((item, index) => (
-                  <div key={index} className="mb-2">
-                    <p className="text-sm text-gray-600">
-                      <span className="font-bold">{item.data.product}</span>
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      Emission:{" "}
-                      <span className="font-semibold text-yellow-900">
-                        {item.totalEmission.toFixed(2)} kg CO₂e
-                      </span>
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <ResultCard
+                title="Food"
+                theme={{
+                  bg: "bg-gradient-to-r from-white to-green-400/30",
+                  border: "border-yellow-100",
+                  title: "text-yellow-800",
+                  emission: "text-yellow-800",
+                }}
+                rows={result.food.map((item) => ({
+                  label: item.data.product,
+                  value: `${item.totalEmission.toFixed(2)} kg CO₂e`,
+                }))}
+              />
             )}
 
-            <div className="p-4 rounded-xl bg-blue-500 text-white border border-white/10 md:col-span-2">
-              <h3 className="font-semibold">Total Emission</h3>
-              <p className="text-2xl font-bold mt-1">
-                {result.totalEmission.toFixed(2)}{" "}
-                <span className="text-sm font-medium">kg CO₂e</span>
-              </p>
-              <p className="text-sm text-gray-300 mt-2">
-                Keep tracking your impact 🌍
+            <div className="p-4 rounded-sm bg-gradient-to-r from-white to-blue-400/30 text-white md:col-span-2">
+              <h3 className="font-semibold text-purple-700">Total Emission</h3>
+              <p className="text-2xl  text-purple-800 font-bold">
+                {result.totalEmission.toFixed(2)} kg CO₂e
               </p>
             </div>
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 export default function useUpdateResources() {
   const [loading, setLoading] = useState(false);
+  /* eslint-disable */
   const [resource, setResource] = useState(null);
 
   const updateResources = async (id, data) => {
