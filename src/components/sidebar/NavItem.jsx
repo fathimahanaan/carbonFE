@@ -6,7 +6,7 @@ export const NavItem = ({ path, icon, name, description }) => {
     <NavLink
       to={path}
       className={({ isActive }) =>
-        `group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300
+        `group flex items-center gap-3 px-4 py-3 rounded-sm transition-all duration-300
         ${
           isActive
             ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white shadow-lg"

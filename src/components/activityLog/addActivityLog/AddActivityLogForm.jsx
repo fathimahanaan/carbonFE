@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { toast } from "react-toastify";
 import FormSelect from "../../FormSelect";
 import FormInput from "../../FormInput";
 import useCalculateAllEmissions from "../../../hooks/history/useCalculateAllEmissions";
@@ -29,49 +29,90 @@ const CalculateEmissionsPage = () => {
   const [foodUnit, setFoodUnit] = useState("");
   const [foodAmount, setFoodAmount] = useState("");
   const [foodItems, setFoodItems] = useState([]);
+
   const { options, loading: loadingOptions } = useGetVehicleOptions(activity);
+
+  // Add food item
   const handleAddFoodItem = () => {
-    if (!foodProduct || !foodUnit || !foodAmount) return;
+    if (!foodProduct || !foodUnit || !foodAmount) {
+      toast.error("Please complete all food fields before adding.");
+      return;
+    }
 
     setFoodItems((prev) => [
       ...prev,
-      {
-        product: foodProduct,
-        unit: foodUnit,
-        amount: Number(foodAmount),
-      },
+      { product: foodProduct, unit: foodUnit, amount: Number(foodAmount) },
     ]);
 
     setFoodProduct("");
     setFoodUnit("");
     setFoodAmount("");
+
+    toast.success("Food item added!");
   };
 
+  // Submit handler
   const handleSubmit = async () => {
-    if (
-      !activity ||
-      !distance ||
-      !energyActivity ||
-      !amount ||
-      foodItems.length === 0
-    )
+    // Warn if user has typed food but not added it
+    if (foodProduct || foodUnit || foodAmount) {
+      toast.error("Please click 'Add Food' before calculating.");
       return;
+    }
 
-    await calculateEmissions({
-      vehicleData: {
-        activity,
-        type,
-        fuel,
-        unit,
-        distance: Number(distance),
-      },
-      energyData: {
-        activity: energyActivity,
-        unit: energyUnit,
-        amount: Number(amount),
-      },
-      foodItems,
-    });
+    // Determine which sections have any input
+    const vehicleStarted = activity || type || fuel || unit || distance;
+    const energyStarted = energyActivity || energyUnit || amount;
+    const foodStarted = foodItems.length > 0;
+
+    // Ensure at least one section has input
+    if (!vehicleStarted && !energyStarted && !foodStarted) {
+      toast.error("Please enter at least one emission category.");
+      return;
+    }
+
+    // Validate only started sections
+    if (
+      vehicleStarted &&
+      (!activity || !type || !fuel || !unit || !distance)
+    ) {
+      toast.error("Please complete all vehicle fields or leave section blank.");
+      return;
+    }
+
+    if (
+      energyStarted &&
+      (!energyActivity || !energyUnit || !amount)
+    ) {
+      toast.error("Please complete all energy fields or leave section blank.");
+      return;
+    }
+
+    // Build payload dynamically
+    const payload = {
+      ...(vehicleStarted && {
+        vehicleData: {
+          activity,
+          type,
+          fuel,
+          unit,
+          distance: Number(distance),
+        },
+      }),
+      ...(energyStarted && {
+        energyData: {
+          activity: energyActivity,
+          unit: energyUnit,
+          amount: Number(amount),
+        },
+      }),
+      ...(foodStarted && { foodItems }),
+    };
+
+    try {
+      await calculateEmissions(payload);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -91,7 +132,7 @@ const CalculateEmissionsPage = () => {
             onClick={() => setActiveTab(tab)}
             className={`w-1/3 py-3 font-semibold transition ${
               activeTab === tab
-                ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white"
+                ? "bg-green-100 text-green"
                 : "text-green-900"
             }`}
           >
@@ -114,28 +155,24 @@ const CalculateEmissionsPage = () => {
             }}
             list={options.activities}
           />
-
           <FormSelect
             title="Type"
             value={type}
             onChange={(e) => setType(e.target.value)}
             list={options.types}
           />
-
           <FormSelect
             title="Fuel"
             value={fuel}
             onChange={(e) => setFuel(e.target.value)}
             list={options.fuels}
           />
-
           <FormSelect
             title="Unit"
             value={unit}
             onChange={(e) => setUnit(e.target.value)}
             list={options.units}
           />
-
           <FormInput
             label="Distance"
             type="number"
@@ -183,8 +220,8 @@ const CalculateEmissionsPage = () => {
 
       {/* Results */}
       {result && (
-        <div className="mt-6  bg-white-100/70">
-          <div className="px-6 py-5   flex justify-between">
+        <div className="mt-6 bg-white-100/70">
+          <div className="px-6 py-5 flex justify-between">
             <h2 className="text-lg font-semibold text-green-600">
               🌿 Emission Result
             </h2>
@@ -248,7 +285,7 @@ const CalculateEmissionsPage = () => {
 
             <div className="p-4 rounded-sm bg-gradient-to-r from-white to-blue-400/30 text-white md:col-span-2">
               <h3 className="font-semibold text-purple-700">Total Emission</h3>
-              <p className="text-2xl  text-purple-800 font-bold">
+              <p className="text-2xl text-purple-800 font-bold">
                 {result.totalEmission.toFixed(2)} kg CO₂e
               </p>
             </div>

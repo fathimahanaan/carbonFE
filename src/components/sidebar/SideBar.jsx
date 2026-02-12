@@ -30,7 +30,7 @@ export const SideBar = () => {
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `flex items-center gap-3 py-3 px-4 rounded-xl mb-6 transition-all duration-300
+          `flex items-center gap-3 py-3 px-4 rounded-sm mb-6 transition-all duration-300
            ${
              isActive
                ? "bg-gradient-to-r from-[#2ecc71] to-[#006400] text-white shadow-lg"

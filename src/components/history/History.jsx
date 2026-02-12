@@ -62,7 +62,7 @@ export default function History() {
               title="Vehicle"
               emission={record.vehicle.totalEmission}
               details={`${record.vehicle.data.activity}, ${record.vehicle.data.type}, ${record.vehicle.data.fuel}, ${record.vehicle.data.distance} ${record.vehicle.data.unit}`}
-              color="bg-blue-100/40"
+              color="bg-yellow-200/50"
             />
 
             <HistorySection
@@ -78,14 +78,14 @@ export default function History() {
                       .join(", ")
                   : "No food entries"
               }
-              color="bg-purple-100/40"
+              color="bg-green-300"
             />
 
             <HistorySection
               title="Energy"
               emission={record.energy.totalEmission}
               details={`${record.energy.data.activity}, ${record.energy.data.amount} ${record.energy.data.unit}`}
-              color="bg-green-100/40"
+              color="bg-green-200"
             />
           </div>
         ))
