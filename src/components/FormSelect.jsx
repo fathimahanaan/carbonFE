@@ -19,12 +19,12 @@ const FormSelect = ({
         value={value}
         onChange={onChange}
         multiple={multi}
-        className="border border border-green-500 p-2 w-full rounded"
+        className="border border border-green-500 outline-none p-2 w-full rounded "
       >
         <option value="" disabled>{`Select ${title}`}</option>
 
         {list?.map((item, index) => {
-          // If item is object
+        
           if (typeof item === "object") {
             const label = displayField ? item[displayField] : item.name;
             const val = valueField ? item[valueField] : item._id || label;

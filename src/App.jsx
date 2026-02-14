@@ -12,11 +12,13 @@ import { EditResourcePage } from "./pages/resources/EditResourcePage";
 
 import AdminRoute from "./components/admin/AdminRoute";
 import PrivateRoute from "./context/PrivateRoute";
+import GetEmissionGraph from "./components/insights/GetEmissionGraph";
+ 
 
 function App() {
 const router = createBrowserRouter([
   {
-    element: <PrivateRoute />,   // protects ALL routes
+    element: <PrivateRoute />,   
     children: [
       {
         path: "/",
@@ -25,7 +27,8 @@ const router = createBrowserRouter([
           { index: true, element: <DashboardPage /> },
           { path: "activity", element: <ActivityLogPage /> },
           { path: "history", element: <HistoryPage /> },
-          { path: "resources", element: <ResourcePage /> },
+          { path: "resources", element:<GetEmissionGraph/>  },
+ 
 
           {
             element: <AdminRoute />, // protects admin routes
