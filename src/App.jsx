@@ -12,37 +12,37 @@ import { EditResourcePage } from "./pages/resources/EditResourcePage";
 
 import AdminRoute from "./components/admin/AdminRoute";
 import PrivateRoute from "./context/PrivateRoute";
-import GetEmissionGraph from "./components/insights/GetEmissionGraph";
+
  
 
 function App() {
-const router = createBrowserRouter([
-  {
-    element: <PrivateRoute />,   
-    children: [
-      {
-        path: "/",
-        element: <Layout />,
-        children: [
-          { index: true, element: <DashboardPage /> },
-          { path: "activity", element: <ActivityLogPage /> },
-          { path: "history", element: <HistoryPage /> },
-          { path: "resources", element:<GetEmissionGraph/>  },
- 
+  const router = createBrowserRouter([
+    {
+      element: <PrivateRoute />,
+      children: [
+        {
+          path: "/",
+          element: <Layout />,
+          children: [
+            { index: true, element: <DashboardPage /> },
+            { path: "activity", element: <ActivityLogPage /> },
+            { path: "history", element: <HistoryPage /> },
+            { path: "resources", element: <ResourcePage /> },
 
-          {
-            element: <AdminRoute />, // protects admin routes
-            children: [
-              { path: "resources/add", element: <AddResourcePage /> },
-              { path: "resources/edit/:id", element: <EditResourcePage /> },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  { path: "/login", element: <LoginPage /> },
-]);
+            {
+              element: <AdminRoute />, // protects admin routes
+              children: [
+                { path: "resources/add", element: <AddResourcePage /> },
+                { path: "resources/edit/:id", element: <EditResourcePage /> },
+      
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    { path: "/login", element: <LoginPage /> },
+  ]);
 
   return <RouterProvider router={router} />;
 }
