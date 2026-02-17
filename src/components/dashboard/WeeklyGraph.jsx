@@ -21,10 +21,10 @@ const EMISSION_THRESHOLDS = { LOW: 50, HIGH: 150 };
 const getColorByEmission = (value) => {
   if (value > EMISSION_THRESHOLDS.HIGH) return "rgba(153, 30, 14, 0.8)"; // High
   if (value >= EMISSION_THRESHOLDS.LOW) return "rgba(51, 168, 246, 0.8)"; // Neutral
-  return "rgba(35, 118, 35, 0.8)"; // Low
+  return "rgba(35, 118, 35, 0.8)";  
 };
 
-export default function  UserDashboard() {
+export default function  WeeklyGraph() {
   const { weeklyEmissions, loading } = useGetWeeklyGraph();
  
   if (loading) return <p><LoadingSpinner/></p>;
@@ -98,7 +98,7 @@ export default function  UserDashboard() {
         height: "350px",         
         margin: "2rem auto",
         padding: "1rem",
-        background: "#e2f5e8",
+        background: "#c0e7f7",
          
  
         
