@@ -46,7 +46,7 @@ export default function PredictionLineChart() {
         </div>
       </motion.div>
 
-      {/* 📈 Line Chart */}
+      {/* Line Chart */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

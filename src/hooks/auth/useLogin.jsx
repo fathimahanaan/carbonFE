@@ -8,7 +8,7 @@ import { useAuth } from "../../context/AuthContext"; // <-- add this
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { setUser } = useAuth(); // <-- add this
+  const { setUser } = useAuth();  
 
   const login = async ({ userId, password }) => {
     setLoading(true);

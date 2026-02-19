@@ -9,8 +9,8 @@ export const useDeleteHistory = () => {
   const deleteHistory = async (id) => {
     setLoading(true);
 
-    // 🔥 console log
-    console.log("Delete URL:", `${base_url}/history/deleteHistory/${id}`);
+    
+    console.log("Delete URL:",`${base_url}/history/deleteHistory/${id}`);
 
     try {
       const res = await axios.delete(
