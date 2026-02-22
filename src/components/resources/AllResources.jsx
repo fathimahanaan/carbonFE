@@ -57,7 +57,7 @@ export const AllResources = () => {
       {/* Resources Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {resources.map((resource) => {
-          // ✅ Stable image per card
+         
           const imageSrc = resource.image || getRandomImage();
 
           return (
