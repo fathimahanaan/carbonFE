@@ -19,12 +19,12 @@ const CalculateEmissionsPage = () => {
   const [unit, setUnit] = useState("");
   const [distance, setDistance] = useState("");
 
-  // Energy
+ 
   const [energyActivity, setEnergyActivity] = useState("");
   const [energyUnit, setEnergyUnit] = useState("");
   const [amount, setAmount] = useState("");
 
-  // Food
+ 
   const [foodProduct, setFoodProduct] = useState("");
   const [foodUnit, setFoodUnit] = useState("");
   const [foodAmount, setFoodAmount] = useState("");
@@ -32,7 +32,7 @@ const CalculateEmissionsPage = () => {
 
   const { options, loading: loadingOptions } = useGetVehicleOptions(activity);
 
-  // Add food item
+ 
   const handleAddFoodItem = () => {
     if (!foodProduct || !foodUnit || !foodAmount) {
       toast.error("Please complete all food fields before adding.");
@@ -50,10 +50,9 @@ const CalculateEmissionsPage = () => {
 
     toast.success("Food item added!");
   };
-
-  // Submit handler
+ 
   const handleSubmit = async () => {
-    // Warn if user has typed food but not added it
+ 
     if (foodProduct || foodUnit || foodAmount) {
       toast.error("Please click 'Add Food' before calculating.");
       return;
