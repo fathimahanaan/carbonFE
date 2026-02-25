@@ -1,32 +1,30 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import useLogin from "../../hooks/auth/useLogin";
-import FormInput from "../../components/FormInput";
- 
+import useRegisterLogin from "../../hooks/auth/useRegisterLogin";
+import FormInput from "../FormInput";
 
-const LoginPage = () => {
-  const { login, loading } = useLogin();
-  const [userId, setUserId] = useState("");
+const Register = () => {
+  const { register, loading } = useRegisterLogin();
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    await login({ userId, password });
+    await register({ password });
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white w-full max-w-xl p-10 rounded shadow">
+      <div className="bg-white w-full max-w-xl p-10 rounded-lg shadow-md">
 
         {/* Logo Section */}
-        <div className="flex items-center gap-3 mb-3 justify-center">
+        <div className="flex items-center justify-center gap-4 mb-6">
           <img
             src="/earthh.png"
             alt="logo"
-            className="w-[100px] h-[100px]"
+            className="w-20 h-20 object-contain"
           />
-          <div>
-            <p className="text-green-900 font-bold text-3xl">
+          <div className="text-left">
+            <p className="text-green-900 font-bold text-2xl leading-tight">
               Carbon Tracker
             </p>
             <span className="text-sm font-semibold text-green-700">
@@ -35,26 +33,17 @@ const LoginPage = () => {
           </div>
         </div>
 
-        <hr className="border-green-800 mb-6" />
+        <hr className="border-green-500 mb-6" />
 
         <h2 className="text-xl font-bold text-green-700 mb-2 text-center">
-          Welcome Back
+          Create Account
         </h2>
+
         <p className="text-gray-600 mb-6 text-center">
-          Log into your account to continue
+          Register to start tracking your emissions
         </p>
 
-        <form onSubmit={handleLogin} className="space-y-4">
-     
-          <FormInput
-            label="User ID"
-            type="text"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            placeholder="Enter your User ID"
-          />
-
-        
+        <form onSubmit={handleRegister} className="space-y-4">
           <FormInput
             label="Password"
             type="password"
@@ -68,14 +57,14 @@ const LoginPage = () => {
             disabled={loading}
             className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
           >
-            {loading ? "Please wait..." : "Log In"}
+            {loading ? "Please wait..." : "Register"}
           </button>
         </form>
 
-        <p className="text-sm text-center text-gray-600 mt-4">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-green-700 font-medium">
-            Sign Up
+        <p className="text-sm text-center text-gray-600 mt-6">
+          Already have an account?{" "}
+          <Link to="/login" className="text-green-700 font-medium">
+            Log In
           </Link>
         </p>
 
@@ -84,4 +73,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Register;

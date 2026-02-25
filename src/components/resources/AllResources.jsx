@@ -7,7 +7,7 @@ import { useDeleteResource } from "../../hooks/educationalresources/useDeleteRes
 import useGetAllResources from "../../hooks/educationalresources/useGetAllResources";
 import { MdDeleteOutline } from "react-icons/md";
 
-/* ✅ Random image helper */
+ 
 const randomImages = [
    
   "https://picsum.photos/400/200?random=2",

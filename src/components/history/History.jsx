@@ -44,7 +44,7 @@ export default function History() {
         </p>
       ) : (
         historyRecords
-          .filter((record) => record != null) // remove null records
+          .filter((record) => record != null)  
           .map((record) => (
             <div
               key={record._id}
@@ -104,7 +104,7 @@ export default function History() {
                         .join(", ")
                     : "No food entries"
                 }
-                color="bg-green-300"
+                color="bg-blue-300/90"
               />
 
               {/* Energy Section */}

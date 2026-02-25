@@ -12,6 +12,7 @@ import { EditResourcePage } from "./pages/resources/EditResourcePage";
 
 import AdminRoute from "./components/admin/AdminRoute";
 import PrivateRoute from "./context/PrivateRoute";
+import RegisterPage from "./pages/register/RegisterPage";
 
  
 
@@ -42,6 +43,7 @@ function App() {
       ],
     },
     { path: "/login", element: <LoginPage /> },
+    { path: "/signup", element: <RegisterPage /> },
   ]);
 
   return <RouterProvider router={router} />;

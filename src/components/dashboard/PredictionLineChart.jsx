@@ -8,6 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import useDailyPrediction from "../../hooks/predictions/useDailyPrediction";
 
@@ -20,8 +21,8 @@ export default function PredictionLineChart() {
   const tomorrow = predicted[0];
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 space-y-8">
-      {/* 🌟 Tomorrow Highlight Card */}
+    <div className="w-full max-w-xl boder boder-blue-900 bg-blue-300 p-1 mx-auto ">
+ 
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -72,21 +73,21 @@ export default function PredictionLineChart() {
             <Line
               type="monotone"
               dataKey="food"
-              stroke="#92bdf2"
+              stroke="#cd4cb8"
               strokeWidth={2}
               activeDot={{ r: 6 }}
             />
             <Line
               type="monotone"
               dataKey="energy"
-              stroke="#a9f6b1"
+              stroke="#359f3f"
               strokeWidth={2}
               activeDot={{ r: 6 }}
             />
             <Line
               type="monotone"
               dataKey="total"
-              stroke="#276abb"
+              stroke="#245897"
               strokeWidth={2}
               activeDot={{ r: 6 }}
             />
