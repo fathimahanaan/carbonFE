@@ -16,10 +16,9 @@ export default function useGetWeeklyGraph() {
         });
 
         if (res.data?.success) {
-          // Backend already returns date in 'Thu, 02/14' format
-          // But if needed, we can normalize it
+ 
           const formatted = res.data.data.map((record) => ({
-            date: record.date, // use as-is for chart
+            date: record.date, 
             emission: record.emission,
           }));
 

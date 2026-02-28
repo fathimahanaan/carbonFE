@@ -3,30 +3,26 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { base_url } from "../../utils/constants";
 
-export const useGetAllFood = () => {
+export const useGetAllUser = () => {
   const [options, setOptions] = useState({
-    foodProducts: [],
+    users: [],
   });
 
   const [loading, setLoading] = useState(false);
 
-  const getFoodOptions = async () => {
+  const getUserOptions = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${base_url}/food/options`, {
+      const res = await axios.get(`${base_url}/user/getUsers`, {
         withCredentials: true,
       });
 
-      console.log(" FOOD OPTIONS API:", res.data);
-
       setOptions({
-        foodProducts: res.data.activities || [],
+        users: res.data || [],
       });
     } catch (err) {
       toast.error(
-        err?.response?.data?.message ||
-          err?.message ||
-          "Failed to load options",
+        err?.response?.data?.message || err?.message || "Failed to load users",
       );
     } finally {
       setLoading(false);
@@ -34,10 +30,10 @@ export const useGetAllFood = () => {
   };
 
   useEffect(() => {
-    getFoodOptions();
+    getUserOptions();
   }, []);
 
-  return { options, loading, getFoodOptions };
+  return { options, loading, getUserOptions };
 };
 
-export default useGetAllFood;
+export default useGetAllUser;

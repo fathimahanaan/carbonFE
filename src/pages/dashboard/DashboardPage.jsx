@@ -16,14 +16,14 @@ export const DashboardPage = () => {
           <span className="text-gray-700 font-medium">Hello, {user?.name}</span>
  
           {user?.role === "admin" && (
-            <span className="text-gray-500 bg-indigo-100 px-3 py-1 rounded-full text-sm font-semibold">
+            <span className="text-gray-500 bg-indigo-100 px-4 py-2 rounded-full text-sm font-semibold">
               Admin
             </span>
           )}
           <button
             onClick={logout}
             disabled={loading}  
-            className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 transition disabled:opacity-50"
+            className="bg-indigo-500 text-white px-4 py-1 rounded hover:bg-blue-600 transition disabled:opacity-50"
           >
             {loading ? "Logging out..." : "Logout"}
           </button>

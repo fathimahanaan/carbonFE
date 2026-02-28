@@ -6,7 +6,7 @@ export const AddResourceForm = () => {
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [fact, setFact] = useState("");
-  const [type, setType] = useState(""); // maps to tip
+  const [type, setType] = useState(""); 
 
   const { addResources, loading } = useAddResources();
 

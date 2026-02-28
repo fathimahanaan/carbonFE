@@ -7,17 +7,15 @@ import { useDeleteResource } from "../../hooks/educationalresources/useDeleteRes
 import useGetAllResources from "../../hooks/educationalresources/useGetAllResources";
 import { MdDeleteOutline } from "react-icons/md";
 
- 
-const randomImages = [
-   
-  "https://picsum.photos/400/200?random=2",
-  "https://picsum.photos/400/200?random=3",
-  "https://picsum.photos/400/200?random=4",
-  "https://picsum.photos/400/200?random=5",
+const vegetableImages = [
+ "https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg", // broccoli, peppers
+  "https://images.pexels.com/photos/1435907/pexels-photo-1435907.jpeg", // assorted veggies
+  "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg", // colorful veggies
+  "https://images.pexels.com/photos/5938/vegetables-restaurant-kitchen-garden.jpg", // peppers
+  "https://images.pexels.com/photos/8390/food-vegetables-healthy-lunch.jpg", // fresh mix
 ];
-
 const getRandomImage = () => {
-  return randomImages[Math.floor(Math.random() * randomImages.length)];
+  return vegetableImages[Math.floor(Math.random() * vegetableImages.length)];
 };
 
 export const AllResources = () => {
@@ -27,7 +25,7 @@ export const AllResources = () => {
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this resource?"
+      "Are you sure you want to delete this resource?",
     );
     if (!confirmed) return;
 
@@ -57,8 +55,7 @@ export const AllResources = () => {
       {/* Resources Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {resources.map((resource) => {
-         
-          const imageSrc = resource.image || getRandomImage();
+        const imageSrc = resource.image || getRandomImage();
 
           return (
             <div

@@ -1,26 +1,26 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { base_url } from "../../utils/constants";
 
-const useGetHistory = () => {
+const useGetHistory = (keyword) => {
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
 
   const getHistory = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(
-        `${base_url}/history/viewHistory?${Date.now()}`,
-        {
-          withCredentials: true,
-        },
-      );
+      let url = `${base_url}/history/viewHistory`;
 
-      console.log("🧾 HISTORY API RESPONSE:", res.data);
-      console.log("📌 HISTORY ARRAY:", res.data.data);
+      if (keyword && keyword.trim() !== "") {
+        url += `?keyword=${encodeURIComponent(keyword)}`;
+      }
 
-      setHistory(res.data.data); // MUST be array
+      const res = await axios.get(url, {
+        withCredentials: true,
+      });
+
+      setHistory(res.data.data);
     } catch (err) {
       toast.error(err?.response?.data?.message || err?.message);
     } finally {
@@ -30,13 +30,9 @@ const useGetHistory = () => {
 
   useEffect(() => {
     getHistory();
-  }, []);
+  }, [keyword]);  
 
-  const refetch = () => {
-    getHistory();
-  };
-
-  return { loading, history, refetch };
+  return { loading, history };
 };
 
 export default useGetHistory;
