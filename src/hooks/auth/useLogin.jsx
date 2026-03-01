@@ -19,7 +19,7 @@ const useLogin = () => {
         { withCredentials: true }
       );
 
-      // IMPORTANT: save user in context
+      
       setUser(res.data.user);
 
       toast.success(res.data.message || "Logged in successfully");

@@ -13,7 +13,7 @@ const useGetEnergyOptions = () => {
   const getEnergyOptions = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${base_url}/energy/options`, {
+      const res = await axios.get(`${base_url}/emission/energyoptions`, {
         withCredentials: true,
       });
 

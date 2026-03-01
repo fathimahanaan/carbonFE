@@ -13,7 +13,7 @@ export const useGetAllFood = () => {
   const getFoodOptions = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${base_url}/food/options`, {
+      const res = await axios.get(`${base_url}/emission/foodoptions`, {
         withCredentials: true,
       });
 

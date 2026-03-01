@@ -18,8 +18,8 @@ const useGetVehicleOptions = (activity) => {
     try {
       
       const url = activity
-        ? `${base_url}/vehicle/option?activity=${encodeURIComponent(activity)}`
-        : `${base_url}/vehicle/option`;
+        ? `${base_url}/emission/vehicleoptions?activity=${encodeURIComponent(activity)}`
+        : `${base_url}/emission/vehicleoptions`;
 
       const res = await axios.get(url, { withCredentials: true });
 

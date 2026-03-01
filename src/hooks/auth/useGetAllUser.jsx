@@ -13,7 +13,7 @@ export const useGetAllUser = () => {
   const getUserOptions = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${base_url}/user/getUsers`, {
+      const res = await axios.get(`${base_url}/auth/getUsers`, {
         withCredentials: true,
       });
 
