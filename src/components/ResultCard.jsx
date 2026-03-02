@@ -1,5 +1,12 @@
 import React from "react";
 
+/**
+ * ResultCard.jsx
+ *
+ * Component to display data rows and optional CO₂ emission.
+ * 
+ * Originally generated with OpenAI ChatGPT, styling tweaks added.
+ */
 export default function ResultCard({ title, theme, rows, emission }) {
   return (
     <div className={`p-4 rounded-sm border ${theme.bg} ${theme.border}`}>

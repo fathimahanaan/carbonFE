@@ -8,10 +8,28 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-// eslint-disable-next-line no-unused-vars
+ 
 import { motion } from "framer-motion";
 import useDailyPrediction from "../../hooks/predictions/useDailyPrediction";
 
+/**
+ * PredictionLineChart.jsx
+ *
+ * Line chart displaying daily CO₂ predictions (vehicle, food, energy, total).
+ *
+ * Original component structure and logic generated with the help of OpenAI's ChatGPT (March 2026).
+ *
+ * Libraries used:
+ *   - React: https://reactjs.org/
+ *   - Recharts: https://recharts.org/
+ *   - Framer Motion: https://www.framer.com/motion/
+ *
+ * Custom modifications by the developer:
+ *   - Minor styling adjustments (background colors, gradient header, card styling, pulse effect)
+ *   - Tailwind CSS classes for layout and spacing
+ *
+ * ChatGPT reference: https://chat.openai.com/
+ */
 export default function PredictionLineChart() {
   const { predicted, loading } = useDailyPrediction();
 

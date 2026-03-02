@@ -26,7 +26,7 @@ export const SideBar = () => {
         </div>
       </div>
 
-      {/* Primary Action */}
+    
       <NavLink
         to="/"
         className={({ isActive }) =>

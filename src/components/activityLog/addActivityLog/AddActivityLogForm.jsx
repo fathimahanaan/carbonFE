@@ -9,30 +9,33 @@ import AddFoodForm from "./AddFoodForm";
 import ResultCard from "../../ResultCard";
 
 const CalculateEmissionsPage = () => {
+  // ---------- Hooks & State ----------
   const { loading, result, calculateEmissions } = useCalculateAllEmissions();
   const [activeTab, setActiveTab] = useState("vehicle");
 
-  // Vehicle
+  // Vehicle form state
   const [activity, setActivity] = useState("");
   const [type, setType] = useState("");
   const [fuel, setFuel] = useState("");
   const [unit, setUnit] = useState("");
   const [distance, setDistance] = useState("");
 
- 
+  // Energy form state
   const [energyActivity, setEnergyActivity] = useState("");
   const [energyUnit, setEnergyUnit] = useState("");
   const [amount, setAmount] = useState("");
 
- 
+  // Food form state
   const [foodProduct, setFoodProduct] = useState("");
   const [foodUnit, setFoodUnit] = useState("");
   const [foodAmount, setFoodAmount] = useState("");
   const [foodItems, setFoodItems] = useState([]);
 
+  // Fetch vehicle options dynamically
   const { options, loading: loadingOptions } = useGetVehicleOptions(activity);
 
- 
+  // ---------- Handlers ----------
+  // Add a food item to the list
   const handleAddFoodItem = () => {
     if (!foodProduct || !foodUnit || !foodAmount) {
       toast.error("Please complete all food fields before adding.");
@@ -50,26 +53,26 @@ const CalculateEmissionsPage = () => {
 
     toast.success("Food item added!");
   };
- 
+
+  // Submit all data for calculation
   const handleSubmit = async () => {
- 
+    // Prevent submission if a food item is partially filled
     if (foodProduct || foodUnit || foodAmount) {
       toast.error("Please click 'Add Food' before calculating.");
       return;
     }
 
-    // Determine which sections have any input
+    // Check which sections have input
     const vehicleStarted = activity || type || fuel || unit || distance;
     const energyStarted = energyActivity || energyUnit || amount;
     const foodStarted = foodItems.length > 0;
 
-    // Ensure at least one section has input
     if (!vehicleStarted && !energyStarted && !foodStarted) {
       toast.error("Please enter at least one emission category.");
       return;
     }
 
-    // Validate only started sections
+    // Validate only the started sections
     if (
       vehicleStarted &&
       (!activity || !type || !fuel || !unit || !distance)
@@ -86,7 +89,9 @@ const CalculateEmissionsPage = () => {
       return;
     }
 
-    // Build payload dynamically
+    // ---------- Payload Construction ----------
+    // This payload construction was suggested with AI assistance for cleaner code
+ 
     const payload = {
       ...(vehicleStarted && {
         vehicleData: {
@@ -107,6 +112,7 @@ const CalculateEmissionsPage = () => {
       ...(foodStarted && { foodItems }),
     };
 
+ 
     try {
       await calculateEmissions(payload);
     } catch (err) {
@@ -114,8 +120,10 @@ const CalculateEmissionsPage = () => {
     }
   };
 
+ 
   return (
     <div className="p-8 max-w-4xl mx-auto">
+      {/* Header */}
       <h1 className="text-3xl font-bold text-green-900 mb-2">
         Calculate your emission
       </h1>
@@ -123,7 +131,7 @@ const CalculateEmissionsPage = () => {
         Get a complete breakdown of your environmental impact
       </p>
 
-      {/* Tabs */}
+      {/* Tabs Section */}
       <div className="flex mb-4 bg-white/10 rounded overflow-hidden">
         {["vehicle", "energy", "food"].map((tab) => (
           <button
@@ -140,7 +148,7 @@ const CalculateEmissionsPage = () => {
         ))}
       </div>
 
-      {/* Vehicle */}
+      {/* ---------- Vehicle Form ---------- */}
       {activeTab === "vehicle" && (
         <section className="mb-6 p-4">
           <FormSelect
@@ -182,7 +190,7 @@ const CalculateEmissionsPage = () => {
         </section>
       )}
 
-      {/* Energy */}
+      {/* ---------- Energy Form ---------- */}
       {activeTab === "energy" && (
         <AddEnergyForm
           energyActivity={energyActivity}
@@ -194,7 +202,7 @@ const CalculateEmissionsPage = () => {
         />
       )}
 
-      {/* Food */}
+      {/* ---------- Food Form ---------- */}
       {activeTab === "food" && (
         <AddFoodForm
           foodProduct={foodProduct}
@@ -208,7 +216,7 @@ const CalculateEmissionsPage = () => {
         />
       )}
 
-      {/* Submit */}
+      {/* ---------- Submit Button ---------- */}
       <button
         onClick={handleSubmit}
         disabled={loading || loadingOptions}
@@ -217,9 +225,12 @@ const CalculateEmissionsPage = () => {
         {loading ? "Calculating..." : "Calculate"}
       </button>
 
-      {/* Results */}
+      {/* ---------- Results Section ---------- */}
+     { /*  The structure, conditional rendering, and mapping of food items were guided with the assistance of ChatGPT AI (OpenAI, 2023)*/}
+
       {result && (
         <div className="mt-6 bg-white-100/70">
+       
           <div className="px-6 py-5 flex justify-between">
             <h2 className="text-lg font-semibold text-green-600">
               🌿 Emission Result
@@ -229,7 +240,9 @@ const CalculateEmissionsPage = () => {
             </span>
           </div>
 
+        
           <div className="p-6 grid gap-4 md:grid-cols-2">
+          
             {result.vehicle?.data && (
               <ResultCard
                 title="Vehicle"
@@ -249,6 +262,7 @@ const CalculateEmissionsPage = () => {
               />
             )}
 
+            {/* Energy Result */}
             {result.energy?.data && (
               <ResultCard
                 title="Energy"
@@ -266,6 +280,7 @@ const CalculateEmissionsPage = () => {
               />
             )}
 
+            {/* Food Results */}
             {Array.isArray(result.food) && result.food.length > 0 && (
               <ResultCard
                 title="Food"
@@ -282,6 +297,7 @@ const CalculateEmissionsPage = () => {
               />
             )}
 
+            {/* Total Emission */}
             <div className="p-4 rounded-sm bg-gradient-to-r from-white to-blue-400/30 text-white md:col-span-2">
               <h3 className="font-semibold text-purple-700">Total Emission</h3>
               <p className="text-2xl text-purple-800 font-bold">

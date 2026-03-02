@@ -21,6 +21,27 @@ ChartJS.register(
   Legend,
 );
 
+/**
+ * WeeklyGraph.jsx
+ *
+ * Bar chart displaying CO₂ emissions over the last 7 days.
+ *
+ * Original code generated with the help of OpenAI's ChatGPT (March 2026).
+ *
+ * Libraries used:
+ *   - React: https://reactjs.org/
+ *   - Chart.js: https://www.chartjs.org/
+ *
+ * Custom modifications :
+ *   - Weekly 7-day date handling
+ *   - Custom emission thresholds (LOW/HIGH) and corresponding colors
+ *     (e.g., high emissions >50 kg highlighted in red, neutral in blue, low in green)
+ *   - Background styling, borders, and shadow effects
+ *   - Tooltip formatting with emission levels
+ *   - Overall restructuring and styling adjustments
+ *
+ * ChatGPT reference: https://chat.openai.com/
+ */
 const EMISSION_THRESHOLDS = { LOW: 50, HIGH: 150 };
 
 const getColorByEmission = (value) => {

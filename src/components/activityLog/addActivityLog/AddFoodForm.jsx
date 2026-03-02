@@ -22,8 +22,7 @@ const AddFoodForm = ({
           🍽️ Food Consumption
         </h2>
         <p className="text-sm font-semibold text-gray-600 mt-1">
-          Track food intake to estimate emissions from production and supply
-          chains.
+          Track food intake to estimate emissions.
         </p>
       </div>
 
@@ -80,7 +79,7 @@ const AddFoodForm = ({
           onClick={onAddFood}
           className="mt-4 inline-flex items-center gap-2 text-sm font-medium font-semibold text-green-700 hover:text-orange-500"
         >
-          ➕ Add Food Item
+         Add Food Item
         </button>
       )}
 

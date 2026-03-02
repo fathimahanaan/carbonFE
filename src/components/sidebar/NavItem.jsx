@@ -35,11 +35,4 @@ export const NavItem = ({ path, icon, name, description }) => {
 };
 
 
-// `location` holds the current URL (e.g., location.pathname = "/activity").
-// It can be used to highlight the active link manually:
-//   const isActive = location.pathname === item.path;
-//   <div className={isActive ? "bg-purple-700" : ""}>{item.name}</div>
-// With <NavLink>, we can do the same automatically:
-//   <NavLink to={item.path} className={({ isActive }) => isActive ? "bg-purple-700" : ""}>
-//     {item.name}
-//   </NavLink>
+ 

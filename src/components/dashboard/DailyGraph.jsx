@@ -3,7 +3,14 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recha
 import useDailyEmissionGraph from "../../hooks/insights/useDailyEmissionGraph";
 import LoadingSpinner from "../LoadingSpinner";
  
-
+/**
+ * DailyGraph.jsx
+ * 
+ * Pie chart showing today's CO₂ emissions breakdown.
+ * 
+ * Generated with the help of OpenAI's ChatGPT (March 2026).
+ * Customizations include: color palette and background styling.
+ */
  
 const COLORS = [   "#8aa2d8",  
   "#9be093", 

@@ -18,7 +18,7 @@ const AddEnergyForm = ({
       {/* Header */}
       <div className="mb-4">
         <h2 className="text-lg font-bold text-[#006400] flex items-center gap-2">
-          ⚡ Energy Consumption
+           Energy Consumption
         </h2>
         <p className="text-sm font-semibold text-gray-500 mt-1">
           Provide details about energy usage to accurately calculate emissions.
@@ -33,7 +33,7 @@ const AddEnergyForm = ({
         list={options.activities}
       />
       <p className="text-sm font-semibold text-gray-500 mb-3">
-        Example: electricity usage, diesel generator, natural gas, etc.
+        Example: electricity usage 
       </p>
 
       {/* Unit */}
