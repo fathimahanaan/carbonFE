@@ -76,7 +76,7 @@ export default function History() {
         Review, analyze, or remove your previously calculated emission records.
       </p>
 
-      {/* 🔍 Search Section */}
+      {/*  Search Section */}
       <div className="mb-6 flex gap-2">
         <button
           onClick={() => {}}
