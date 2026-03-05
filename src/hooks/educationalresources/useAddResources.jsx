@@ -31,7 +31,7 @@ const addResources = async ({
       { withCredentials: true }
     );
 
-    toast.success("Resources added successfully 🌱");
+    toast.success("Resources added successfully");
     navigate("/resources");
   } catch (err) {
     toast.error(

@@ -19,7 +19,7 @@ const AddFoodForm = ({
       {/* Header */}
       <div className="mb-4">
         <h2 className="text-lg font-bold text-green-700 flex items-center gap-2">
-          🍽️ Food Consumption
+           Food Consumption
         </h2>
         <p className="text-sm font-semibold text-gray-600 mt-1">
           Track food intake to estimate emissions.

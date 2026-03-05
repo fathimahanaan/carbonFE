@@ -24,7 +24,7 @@ import useDailyPrediction from "../../hooks/predictions/useDailyPrediction";
  *   - Recharts: https://recharts.org/
  *   - Framer Motion: https://www.framer.com/motion/
  *
- * Custom modifications by the developer:
+ * Custom modifications :
  *   - Minor styling adjustments (background colors, gradient header, card styling, pulse effect)
  *   - Tailwind CSS classes for layout and spacing
  *

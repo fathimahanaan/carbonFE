@@ -25,7 +25,7 @@ export default function useGetAllResources() {
     }
   };
   useEffect(() => {
-    console.log("🔄 useEffect triggered");
+    console.log("useEffect triggered");
     getAllResources();
   }, []);
 

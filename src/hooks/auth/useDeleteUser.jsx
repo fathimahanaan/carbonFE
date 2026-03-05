@@ -15,7 +15,7 @@ export const useDeleteUser = () => {
       );
 
       toast.success(res?.data?.message || "User deleted successfully");
-      return true; // tell component it succeeded
+      return true;  
     } catch (err) {
       toast.error(
         err?.response?.data?.message ||

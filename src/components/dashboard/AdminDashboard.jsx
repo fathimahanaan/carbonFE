@@ -8,7 +8,7 @@ export default function AdminDashboard() {
   const { deleteUser, loading: deleteLoading } = useDeleteUser();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 6;
+  const usersPerPage = 4;
 
   if (loading) {
     return (

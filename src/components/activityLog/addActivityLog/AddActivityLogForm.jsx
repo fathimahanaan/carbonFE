@@ -8,7 +8,7 @@ import AddEnergyForm from "./AddEnergyForm";
 import AddFoodForm from "./AddFoodForm";
 import ResultCard from "../../ResultCard";
 
-const CalculateEmissionsPage = () => {
+const  AddActivityLogForm= () => {
   // ---------- Hooks & State ----------
   const { loading, result, calculateEmissions } = useCalculateAllEmissions();
   const [activeTab, setActiveTab] = useState("vehicle");
@@ -91,7 +91,7 @@ const CalculateEmissionsPage = () => {
 
     // ---------- Payload Construction ----------
     // This payload construction was suggested with AI assistance for cleaner code
- 
+ //is prevents sending empty data to the backend and keeps the request clean.
     const payload = {
       ...(vehicleStarted && {
         vehicleData: {
@@ -311,4 +311,4 @@ const CalculateEmissionsPage = () => {
   );
 };
 
-export default CalculateEmissionsPage;
+export default  AddActivityLogForm;

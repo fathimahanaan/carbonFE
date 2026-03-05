@@ -92,6 +92,7 @@ export default function History() {
           className="border border-green-400 p-2 rounded w-full focus:outline-none"
         />
       </div>
+ 
 
       {!filteredHistory || filteredHistory.length === 0 ? (
         <p className="text-center text-gray-500 mt-10">
@@ -123,7 +124,12 @@ export default function History() {
             <p className="font-semibold mb-3">
               Total Emission: {(record.totalEmission ?? 0).toFixed(2)} kg CO₂e
             </p>
-
+      {/* 
+  The following HistorySection components were initially generated 
+  with the assistance of ChatGPT (for syntax and JSX structure). 
+  I then modified the styles, colors, and content formatting to fit 
+  my project design and requirements.
+*/}
             <HistorySection
               title="Vehicle"
               emission={record.vehicle?.totalEmission ?? 0}

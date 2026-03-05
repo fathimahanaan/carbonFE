@@ -7,7 +7,7 @@ export const navItems = [
   {
     id: 1,
     icon: <IoEarthSharp />,
-    name: "Calculate",
+    name: "Check My Impact",
     path: "/activity",
     role: "user",
     description: "Calculate your emission",
