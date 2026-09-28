@@ -18,11 +18,11 @@ export default function UserDashboardPage() {
   return (
     <div className=" min-h-screen">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div className=" ">
+        <div className="bg-white px-4 py-6 rounded-lg shadow-sm border border-amber-100">
           <h2 className="text-xl font-semibold text-green-800 mb-4">
             Weekly Overview
           </h2>
-          <WeeklyGraph />
+          <WeeklyGraph />  
         </div>
 
         <div className="flex flex-col bg-white border border-amber-100  shadow-sm p-4">
@@ -31,9 +31,14 @@ export default function UserDashboardPage() {
       </div>
 
       {/* Prediction Line Chart */}
-      <div className="">
+      <div className="bg-white px-4 py-6 rounded-lg shadow-sm border border-amber-100">
         <PredictionLineChart />
       </div>
+      <div clas>
+
+      </div>
     </div>
+ 
   );
 }
+//hello
