@@ -34,7 +34,7 @@ export default function UserDashboardPage() {
       <div className="bg-white px-4 py-6 rounded-lg shadow-sm border border-amber-100">
         <PredictionLineChart />
       </div>
-     
+      <div clas>
 
       </div>
     </div>
